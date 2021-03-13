@@ -1,8 +1,9 @@
 Red social basada en post de productos para gente que haga artesania.
-Los productos podran ser comprados en la app, podran subir los productos con imagenes cada uno y un precio estimado, 
-podrás seguir a la gente que te gusta para ver los productos y demas.
+Los productos tendran precio en la app, podran subir los productos con imagenes cada uno,
+podrás seguir a la gente para ver los productos que sube.
 
-
+Tendras un apartado donde solo veras las publicaciones de la que gente que sigues y otro para descrubir donde saldrán
+todas las personas a las que NO sigas.
 
 
 Cuentas de artesania:
@@ -22,7 +23,7 @@ ArtSpace
 ArtNet
 
 
-Anillos
-Collares
-Imanes para la nevera botellines
-Incienso
+Sketching:
+
+Como poner para crear un nuevo post¿? Preguntar a miguel el lunes.
+Terminar de poner colores.
