@@ -1,0 +1,27 @@
+Red social basada en post de productos para gente que haga artesania.
+Los productos podran ser comprados en la app, podran subir los productos con imagenes cada uno y un precio estimado, 
+podrás seguir a la gente que te gusta para ver los productos y demas.
+
+
+
+
+Cuentas de artesania:
+the_goblin_shop
+deskolorao
+artesania_saturno
+elenart_cr
+
+
+Nombres:
+
+IndArt
+
+ArtSpace
+
+ArtNet
+
+
+Anillos
+Collares
+Imanes para la nevera botellines
+Incienso
