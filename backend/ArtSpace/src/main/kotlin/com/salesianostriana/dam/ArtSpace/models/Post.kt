@@ -5,15 +5,13 @@ import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import javax.persistence.Lob
-
 @Entity
-class User(
-    private var username : String,
-    private var password : String,
-    var email : String,
-    var address : String,
-    var location : String,
+class Post (
+    var tittle : String,
+    var price : Double,
     @Lob var description : String,
+    var material : String,
     @Id @GeneratedValue var id : UUID
-) {
+    ){
+
 }
