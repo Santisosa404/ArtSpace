@@ -40,4 +40,18 @@ class User(
         this.posts.remove(post)
         post.user = null
     }
+
+    /**
+     * Metodos auxiliares  likes
+     */
+    fun addLike(post : Post){
+        likes.add(post)
+        post.likesGotten.add(this)
+    }
+    fun deleteLike(post : Post){
+        likes.remove(post)
+        post.likesGotten.remove(this)
+    }
+
+
 }
