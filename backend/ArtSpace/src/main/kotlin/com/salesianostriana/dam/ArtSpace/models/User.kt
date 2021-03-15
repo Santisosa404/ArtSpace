@@ -1,19 +1,43 @@
 package com.salesianostriana.dam.ArtSpace.models
 
 import java.util.*
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import javax.persistence.Lob
+import javax.persistence.*
 
 @Entity
 class User(
-    private var username : String,
-    private var password : String,
-    var email : String,
-    var address : String,
-    var location : String,
-    @Lob var description : String,
-    @Id @GeneratedValue var id : UUID
+    private var username: String,
+    private var password: String,
+    var email: String,
+    var address: String,
+    var location: String,
+    @Lob var description: String,
+
+    //Asociacion con Post composicion
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
+    var posts: MutableList<Post> = mutableListOf(),
+
+    //Asociacion likes con Post
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        joinColumns = [JoinColumn(name = "user_id")],
+        inverseJoinColumns = [JoinColumn(name = "post_id")]
+    )
+    var likes : MutableList<Post> = mutableListOf(),
+
+    @Id @GeneratedValue var id: UUID
 ) {
+
+
+    /**
+     * Metodos auxiliares composicion User -> Post
+     */
+    fun addPost(post: Post) {
+        post.user = this
+        this.posts.add(post)
+    }
+
+    fun removePost(post: Post) {
+        this.posts.remove(post)
+        post.user = null
+    }
 }
