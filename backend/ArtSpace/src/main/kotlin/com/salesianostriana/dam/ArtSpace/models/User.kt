@@ -31,7 +31,7 @@ class User(
         var following: MutableList<User> = mutableListOf(),
 
 
-        @Id @GeneratedValue var id: UUID
+        @Id @GeneratedValue var id: UUID? = null
 ) {
 
 

@@ -9,6 +9,6 @@ class Comment(
 
         @ManyToOne
         var artWork: ArtWork?,
-        @Id @GeneratedValue var id: UUID
+        @Id @GeneratedValue var id: UUID?=null
 ) {
 }

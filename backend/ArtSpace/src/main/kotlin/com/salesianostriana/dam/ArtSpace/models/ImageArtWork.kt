@@ -8,13 +8,13 @@ import javax.persistence.ManyToOne
 
 @Entity
 class ImageArtWork(
-        var dataId : String,
-        var deleteHash : String,
+        var dataId: String,
+        var deleteHash: String,
 
-    //Asociacion artWork composicion
+        //Asociacion artWork composicion
         @ManyToOne
-    var artWork : ArtWork?,
+        var artWork: ArtWork?,
 
-        @Id @GeneratedValue var id : UUID
+        @Id @GeneratedValue var id: UUID?=null
 ) {
 }
