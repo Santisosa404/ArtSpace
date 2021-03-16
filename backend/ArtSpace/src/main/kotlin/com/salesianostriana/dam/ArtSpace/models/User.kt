@@ -10,11 +10,12 @@ class User(
     var email: String,
     var address: String,
     var location: String,
+    var fullname : String,
     @Lob var description: String,
 
     //Asociacion con Post composicion
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
-    var posts: MutableList<Post> = mutableListOf(),
+    var posts: MutableList<Post>? = mutableListOf(),
 
     //Asociacion likes con Post
     @ManyToMany(fetch = FetchType.EAGER)
@@ -23,6 +24,15 @@ class User(
         inverseJoinColumns = [JoinColumn(name = "post_id")]
     )
     var likes : MutableList<Post> = mutableListOf(),
+
+
+//    //Asociacion con  follow usuario
+//    @ManyToMany
+//    @JoinTable(
+//        joinColumns = [JoinColumn(name = "userFollower")],
+//        inverseJoinColumns = [JoinColumn(name = "")]
+//    )
+
 
     @Id @GeneratedValue var id: UUID
 ) {
@@ -33,11 +43,11 @@ class User(
      */
     fun addPost(post: Post) {
         post.user = this
-        this.posts.add(post)
+        this.posts?.add(post)
     }
 
     fun removePost(post: Post) {
-        this.posts.remove(post)
+        this.posts?.remove(post)
         post.user = null
     }
 
