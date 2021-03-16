@@ -5,10 +5,10 @@ import javax.persistence.*
 
 @Entity
 class Comment(
-    @Lob var body : String,
+        @Lob var body: String,
 
-    @ManyToOne
-    var post : Post?,
-    @Id @GeneratedValue  var id : UUID
+        @ManyToOne
+        var artWork: ArtWork?,
+        @Id @GeneratedValue var id: UUID
 ) {
 }

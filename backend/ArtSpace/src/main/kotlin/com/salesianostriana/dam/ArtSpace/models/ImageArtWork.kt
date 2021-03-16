@@ -7,14 +7,14 @@ import javax.persistence.Id
 import javax.persistence.ManyToOne
 
 @Entity
-class ImagePost(
-    var dataId : String,
-    var deleteHash : String,
+class ImageArtWork(
+        var dataId : String,
+        var deleteHash : String,
 
-    //Asociacion post composicion
-    @ManyToOne
-    var post : Post?,
+    //Asociacion artWork composicion
+        @ManyToOne
+    var artWork : ArtWork?,
 
-    @Id @GeneratedValue var id : UUID
+        @Id @GeneratedValue var id : UUID
 ) {
 }

@@ -5,62 +5,60 @@ import javax.persistence.*
 
 @Entity
 class User(
-    private var username: String,
-    private var password: String,
-    var email: String,
-    var address: String,
-    var location: String,
-    var fullname : String,
-    @Lob var description: String,
+        private var username: String,
+        private var password: String,
+        var email: String,
+        var address: String,
+        var location: String,
+        var fullname: String,
+        @Lob var description: String,
 
-    //Asociacion con Post composicion
-    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
-    var posts: MutableList<Post>? = mutableListOf(),
+        //Asociacion con ArtWork composicion
+        @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
+        var artWorks: MutableList<ArtWork>? = mutableListOf(),
 
-    //Asociacion likes con Post
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-        joinColumns = [JoinColumn(name = "user_id")],
-        inverseJoinColumns = [JoinColumn(name = "post_id")]
-    )
-    var likes : MutableList<Post> = mutableListOf(),
-
-
-//    //Asociacion con  follow usuario
-//    @ManyToMany
-//    @JoinTable(
-//        joinColumns = [JoinColumn(name = "userFollower")],
-//        inverseJoinColumns = [JoinColumn(name = "")]
-//    )
+        //Asociacion likes con ArtWork
+        @ManyToMany(fetch = FetchType.EAGER)
+        @JoinTable(
+                joinColumns = [JoinColumn(name = "user_id")],
+                inverseJoinColumns = [JoinColumn(name = "post_id")]
+        )
+        var likes: MutableList<ArtWork> = mutableListOf(),
 
 
-    @Id @GeneratedValue var id: UUID
+        //Asociacion con  follow usuario
+        @ManyToMany
+        var following: MutableList<User> = mutableListOf(),
+
+
+        @Id @GeneratedValue var id: UUID
 ) {
 
 
     /**
-     * Metodos auxiliares composicion User -> Post
+     * Metodos auxiliares composicion User -> ArtWork
      */
-    fun addPost(post: Post) {
-        post.user = this
-        this.posts?.add(post)
+    fun addPost(artWork: ArtWork) {
+        artWork.user = this
+        this.artWorks?.add(artWork)
     }
 
-    fun removePost(post: Post) {
-        this.posts?.remove(post)
-        post.user = null
+    fun removePost(artWork: ArtWork) {
+        this.artWorks?.remove(artWork)
+        artWork.user = null
     }
 
     /**
      * Metodos auxiliares  likes
      */
-    fun addLike(post : Post){
-        likes.add(post)
-        post.likesGotten.add(this)
+    fun addLike(artWork: ArtWork) {
+        likes.add(artWork)
+        artWork.likesGotten.add(this)
     }
-    fun deleteLike(post : Post){
-        likes.remove(post)
-        post.likesGotten.remove(this)
+
+    fun deleteLike(artWork: ArtWork) {
+        likes.remove(artWork)
+        artWork.likesGotten.remove(this)
     }
 
 
