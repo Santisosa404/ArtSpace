@@ -12,6 +12,10 @@ class Cart(
         var ordering : MutableList<CartDetails> = mutableListOf(),
 
 
+        //Asociacion con User
+        @ManyToOne
+        var userOrder : User,
+
         @Id @GeneratedValue var id : UUID?=null
 ) {
 }

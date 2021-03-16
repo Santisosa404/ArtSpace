@@ -5,20 +5,20 @@ import javax.persistence.*
 
 @Entity
 class User(
-        private var username: String,
-        private var password: String,
-        var email: String,
-        var address: String,
-        var location: String,
-        var fullname: String,
-        @Lob var description: String,
+    private var username: String,
+    private var password: String,
+    var email: String,
+    var address: String,
+    var location: String,
+    var fullname: String,
+    @Lob var description: String,
 
         //Asociacion con ArtWork composicion
-        @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
         var artWorks: MutableList<ArtWork>? = mutableListOf(),
 
         //Asociacion likes con ArtWork
-        @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
         @JoinTable(
                 joinColumns = [JoinColumn(name = "user_id")],
                 inverseJoinColumns = [JoinColumn(name = "post_id")]
@@ -27,11 +27,14 @@ class User(
 
 
         //Asociacion con  follow usuario
-        @ManyToMany
+    @ManyToMany
         var following: MutableList<User> = mutableListOf(),
 
+        //Asociacion con Cart
+    @OneToMany(mappedBy = "userOrder")
+    var carts : MutableList<Cart> = mutableListOf(),
 
-        @Id @GeneratedValue var id: UUID? = null
+    @Id @GeneratedValue var id: UUID? = null
 ) {
 
 
