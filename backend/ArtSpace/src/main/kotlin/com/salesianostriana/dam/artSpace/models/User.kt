@@ -11,10 +11,10 @@ import org.springframework.security.core.userdetails.UserDetails
 class User(
     private var username: String,
     private var password: String,
+    var fullname: String,
     var email: String,
     var address: String,
     var location: String,
-    var fullname: String,
     @Lob var description: String,
 
 
@@ -91,5 +91,6 @@ class User(
 
     override fun isEnabled(): Boolean  = this.enabled
 
+    fun toUserRespDTO() = UserRespDTO(this.username,this.fullname,this.email,this.id)
 
 }
