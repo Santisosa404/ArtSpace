@@ -1,4 +1,4 @@
-package com.salesianostriana.dam.ArtSpace
+package com.salesianostriana.dam.artSpace
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest

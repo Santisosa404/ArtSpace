@@ -1,4 +1,4 @@
-package com.salesianostriana.dam.ArtSpace.models
+package com.salesianostriana.dam.artSpace.models
 
 import java.util.*
 

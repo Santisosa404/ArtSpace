@@ -1,18 +1,21 @@
-package com.salesianostriana.dam.ArtSpace.models
+package com.salesianostriana.dam.artSpace.models
 
 import java.util.*
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import javax.persistence.OneToMany
+import javax.persistence.*
 
 @Entity
-class OrderDetails(
+class CartDetails(
         var price : Double,
 
         //Asociacion con ArtWork
         @OneToMany(mappedBy = "orderDet")
         var orderArtWork: MutableList<ArtWork> = mutableListOf(),
+
+
+        //Asociacion con Order compuesta
+        @ManyToOne
+        var orderInDetails: Cart,
+
 
         @Id @GeneratedValue var id : UUID?=null
 ) {

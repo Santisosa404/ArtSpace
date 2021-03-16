@@ -1,4 +1,4 @@
-package com.salesianostriana.dam.ArtSpace.models
+package com.salesianostriana.dam.artSpace.models
 
 import java.util.*
 import javax.persistence.*
@@ -27,7 +27,7 @@ class ArtWork(
 
         //Asociacion con OrderDetails
         @ManyToOne
-        var orderDet : OrderDetails? = null,
+        var orderDet : CartDetails? = null,
 
         @Id @GeneratedValue var id: UUID?=null
 ) {
