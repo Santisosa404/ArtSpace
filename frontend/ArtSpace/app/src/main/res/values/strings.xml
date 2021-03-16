@@ -7,4 +7,6 @@
     <string name="edittext_log_password">Password</string>
     <string name="button_login">Iniciar Sesion</string>
     <string name="button_register">Registrarse</string>
+    <string name="preference_file_name">PREFERENCES_FILE_APP</string>
+    <string name="salir">Salir</string>
 </resources>

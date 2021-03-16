@@ -42,8 +42,8 @@
 
     <Button
         android:id="@+id/button_register"
-        android:layout_width="136dp"
-        android:layout_height="47dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="@string/button_register"
         app:layout_constraintEnd_toEndOf="@+id/editText_login_password"
