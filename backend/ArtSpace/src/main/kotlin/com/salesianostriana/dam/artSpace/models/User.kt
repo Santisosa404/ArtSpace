@@ -1,7 +1,11 @@
 package com.salesianostriana.dam.artSpace.models
 
+import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 import java.util.*
 import javax.persistence.*
+import org.springframework.security.core.userdetails.UserDetails
+
 
 @Entity
 class User(
@@ -12,6 +16,7 @@ class User(
     var location: String,
     var fullname: String,
     @Lob var description: String,
+
 
         //Asociacion con ArtWork composicion
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
@@ -34,8 +39,15 @@ class User(
     @OneToMany(mappedBy = "userOrder")
     var carts : MutableList<Cart> = mutableListOf(),
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    val roles: MutableSet<String> = HashSet(),
+    private val nonExpired: Boolean = true,
+    private val nonLocked: Boolean = true,
+    private val enabled : Boolean=true,
+    private val credentialsNonExpired : Boolean = true,
+
     @Id @GeneratedValue var id: UUID? = null
-) {
+): UserDetails {
 
 
     /**
@@ -63,6 +75,21 @@ class User(
         likes.remove(artWork)
         artWork.likesGotten.remove(this)
     }
+
+    override fun getAuthorities(): MutableCollection<out GrantedAuthority> =
+        roles.map { SimpleGrantedAuthority("ROLE_$it") }.toMutableSet()
+
+    override fun getPassword(): String = this.password
+
+    override fun getUsername(): String = this.username
+
+    override fun isAccountNonExpired(): Boolean = this.nonExpired
+
+    override fun isAccountNonLocked(): Boolean = this.nonLocked
+
+    override fun isCredentialsNonExpired(): Boolean = this.credentialsNonExpired
+
+    override fun isEnabled(): Boolean  = this.enabled
 
 
 }
