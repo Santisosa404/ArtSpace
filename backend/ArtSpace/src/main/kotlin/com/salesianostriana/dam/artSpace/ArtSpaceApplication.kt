@@ -1,4 +1,4 @@
-package com.salesianostriana.dam.ArtSpace
+package com.salesianostriana.dam.artSpace
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
