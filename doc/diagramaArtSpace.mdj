@@ -4144,7 +4144,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF4Of+BQEkXiJ0="
 							},
-							"name": "id"
+							"name": "id",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4152,7 +4153,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF4Of+BQEkXiJ0="
 							},
-							"name": "price"
+							"name": "price",
+							"type": ""
 						}
 					]
 				}
