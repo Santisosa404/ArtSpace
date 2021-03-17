@@ -58,8 +58,8 @@ class ImgurService(
         //var restTemplate = RestTemplate()
 
         var request: HttpEntity<NewImageReq> = HttpEntity(imageReq, headers)
-
-        var imageRes: NewImageRes? = restTemplate.postForObject(URL_NEW_IMAGE, request, NewImageRes::class.java)
+        //TODO donde llegaba con el debug
+        var imageRes: NewImageRes = restTemplate.postForObject(URL_NEW_IMAGE, request, NewImageRes::class.java)!!
 
         if (imageRes != null && imageRes.status == SUCCESS_UPLOAD_STATUS)
             return Optional.of(imageRes)

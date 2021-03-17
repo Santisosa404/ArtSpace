@@ -46,6 +46,7 @@ class ImageArtWorkService(
         if (!file.isEmpty) {
             imageAttribute = imageStorageService.store(file)
         }
+
         var imageArtWork = ImageArtWork()
         imageArtWork.img = imageAttribute.orElse(null)
         return save(imageArtWork)
