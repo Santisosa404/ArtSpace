@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.artSpace.models
 
+import com.salesianostriana.dam.artSpace.upload.ImgurImageAttribute
 import java.util.*
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -8,12 +9,11 @@ import javax.persistence.ManyToOne
 
 @Entity
 class ImageArtWork(
-        var dataId: String,
-        var deleteHash: String,
-
         //Asociacion artWork composicion
+        var img : ImgurImageAttribute?=null,
+
         @ManyToOne
-        var artWork: ArtWork?,
+        var artWork: ArtWork? = null,
 
         @Id @GeneratedValue var id: UUID?=null
 ) {
