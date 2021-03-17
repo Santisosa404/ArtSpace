@@ -1,6 +1,7 @@
 package com.salesianostriana.dam.artSpace.models
 
 import java.util.*
+import javax.persistence.Lob
 
 data class UserDTO(
         var username : String,
@@ -36,4 +37,14 @@ data class UserRespDTO(
     var fullname : String,
     var email: String,
     var id : UUID?
+)
+
+data class UserEditDTO(
+    var username: String,
+    var fullname : String,
+    var email: String,
+    var password : String,
+    var address: String,
+    var location: String,
+    var description : String
 )
