@@ -17,7 +17,8 @@ class User(
     var location: String,
     @Lob var description: String,
 
-
+    @ElementCollection(fetch = FetchType.EAGER)
+    val roles: MutableSet<String> = HashSet(),
         //Asociacion con ArtWork composicion
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
         var artWorks: MutableList<ArtWork>? = mutableListOf(),
@@ -39,8 +40,7 @@ class User(
     @OneToMany(mappedBy = "userOrder")
     var carts : MutableList<Cart> = mutableListOf(),
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    val roles: MutableSet<String> = HashSet(),
+
     private val nonExpired: Boolean = true,
     private val nonLocked: Boolean = true,
     private val enabled : Boolean=true,
@@ -49,7 +49,8 @@ class User(
     @Id @GeneratedValue var id: UUID? = null
 ): UserDetails {
 
-
+    fun setPassword (pass: String) { this.password = pass }
+    fun setUsername (username: String){ this.username = username}
     /**
      * Metodos auxiliares composicion User -> ArtWork
      */
@@ -93,4 +94,5 @@ class User(
 
     fun toUserRespDTO() = UserRespDTO(this.username,this.fullname,this.email,this.id)
 
+    fun toUserDTO()= UserDTO(this.username,this.email,this.address,this.location,this.artWorks,this.following,this.id)
 }

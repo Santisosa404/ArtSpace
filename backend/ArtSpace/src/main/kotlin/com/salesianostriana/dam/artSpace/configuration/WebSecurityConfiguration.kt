@@ -43,7 +43,7 @@ class WebSecurityConfiguration(
             .authorizeRequests()
             .antMatchers("/h2-console/**").permitAll()
             .antMatchers(HttpMethod.POST, "/auth/login", "/auth/register").permitAll()
-            .antMatchers(HttpMethod.GET, "/tendencias").permitAll()
+            .antMatchers(HttpMethod.GET, "/tendencias/").permitAll()
             .antMatchers("/seguidos/**","/tendencias/**","/profile/**","/pub/**","/cart/**").hasRole("USER")
             .anyRequest().hasRole("ADMIN")
 

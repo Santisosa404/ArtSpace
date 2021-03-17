@@ -15,13 +15,17 @@ class UserService(
     fun findByUsername(username : String) = uR.findByUsername(username)
 
     fun findById(id : UUID) = uR.findById(id)
-    
+
     fun createUser(userRegDTO: UserRegDTO): Optional<User> { if (findByUsername(userRegDTO.username).isPresent)
         return Optional.empty<User>()
     return Optional.of(
     with(userRegDTO){
-        uR.save(User(this.username,passwordEncoder.encode(this.password),this.fullname,this.email,this.address,this.location,""))
+        uR.save(User(this.username,passwordEncoder.encode(this.password),this.fullname,this.email,this.address,this.location,"",mutableSetOf("USER")))
     }
     )
         }
+
+    fun existById(id : UUID) = uR.existsById(id)
+
+    fun save(user: User) = uR.save(user)
 }
