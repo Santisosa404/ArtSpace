@@ -13,6 +13,7 @@ import com.salesianostriana.dam.artspace.R
 import com.salesianostriana.dam.artspace.poko.LoginRequest
 import com.salesianostriana.dam.artspace.poko.LoginResponse
 import com.salesianostriana.dam.artspace.retrofit.AuthService
+import com.salesianostriana.dam.artspace.ui.register.RegisterActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
                     ) {
                         Log.i(":::TAG",response.code().toString())
                         if (response.code()==200){
-                            val sharedPref = ctx?.getSharedPreferences(getString(R.string.preference_file_name), Context.MODE_PRIVATE)
+                            val sharedPref = ctx.getSharedPreferences(getString(R.string.preference_file_name), Context.MODE_PRIVATE)
                             token = response.body()?.token!!
                             Log.i("TOKEN", "${token}, ${etUsername}")
 
@@ -81,10 +82,10 @@ class LoginActivity : AppCompatActivity() {
                 etPass.error = "Password incorrecto"
             }
         })
-//        btnRegistro.setOnClickListener {
-//            val intent = Intent(ctx, RegisterActivity::class.java)
-//            startActivity(intent)
-//        }
+        btnRegistro.setOnClickListener {
+            val intent = Intent(ctx, RegisterActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun init() {
