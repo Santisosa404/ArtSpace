@@ -20,22 +20,17 @@ class ArtWorkController(
 
 
     @PostMapping("/")
-    fun creatArtWork(@RequestPart artWorkDTO: ArtWorkNewDTO, @RequestPart file: MultipartFile, @AuthenticationPrincipal user: User): ResponseEntity<ArtWorkDTO> {
+    fun creatArtWork(@RequestPart artWorkDTO: ArtWorkNewDTO, @RequestPart file: MultipartFile, @AuthenticationPrincipal user: User): ResponseEntity<ArtWorkNewDTO> {
         //Objeto imagenVivienda
         var artWork = ArtWork(artWorkDTO.tittle, artWorkDTO.price, artWorkDTO.description, artWorkDTO.material, user)
         artS.save(artWork)
         var iReal = imgS.save(file)
         artWork.addImg(iReal)
-        try {
-
-            artS.save(artWork)
-            return ResponseEntity.status(HttpStatus.CREATED).body(artWork.toDTO())
-        } catch (ex: ImgurBadRequest) {
-            throw ResponseStatusException(HttpStatus.BAD_REQUEST)
-        }
-
-
+        artS.save(artWork)
+        return ResponseEntity.status(HttpStatus.CREATED).build()
     }
 
 
 }
+
+
