@@ -18,7 +18,7 @@ class ArtWork(
         var likesGotten: MutableList<User> = mutableListOf(),
 
         //Asociacion con ImageArtWorkRepository composicion
-        @OneToMany(mappedBy = "artWork", cascade = [CascadeType.ALL])
+        @OneToMany(mappedBy = "artWork", cascade = [CascadeType.ALL],fetch = FetchType.EAGER)
         var images: MutableList<ImageArtWork> = mutableListOf(),
 
         //Asociacion con Comment composicion

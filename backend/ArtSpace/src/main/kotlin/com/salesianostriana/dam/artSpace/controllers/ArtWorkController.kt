@@ -14,23 +14,23 @@ import org.springframework.web.server.ResponseStatusException
 @RestController
 @RequestMapping("/artwork")
 class ArtWorkController(
-    private val imgS: ImageArtWorkService,
-    private val artS : ArtWorkService
+        private val imgS: ImageArtWorkService,
+        private val artS: ArtWorkService
 ) {
 
 
     @PostMapping("/")
     fun creatArtWork(@RequestPart artWorkDTO: ArtWorkNewDTO, @RequestPart file: MultipartFile, @AuthenticationPrincipal user: User): ResponseEntity<ArtWorkDTO> {
-           //Objeto imagenVivienda
-        var artWork = ArtWork(artWorkDTO.tittle,artWorkDTO.price,artWorkDTO.description,artWorkDTO.material,user)
+        //Objeto imagenVivienda
+        var artWork = ArtWork(artWorkDTO.tittle, artWorkDTO.price, artWorkDTO.description, artWorkDTO.material, user)
+        artS.save(artWork)
         var iReal = imgS.save(file)
         artWork.addImg(iReal)
         try {
 
-        imgS.save(iReal)
-        artS.save(artWork)
+            artS.save(artWork)
             return ResponseEntity.status(HttpStatus.CREATED).body(artWork.toDTO())
-        }catch (ex : ImgurBadRequest){
+        } catch (ex: ImgurBadRequest) {
             throw ResponseStatusException(HttpStatus.BAD_REQUEST)
         }
 
