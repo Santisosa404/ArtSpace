@@ -27,7 +27,7 @@ class LoginActivity : AppCompatActivity() {
     lateinit var btnLogin: Button
     lateinit var btnRegistro: Button
 
-    val baseUrl = "http://192.168.56.1:4141"
+    val baseUrl = "http://10.0.2.2:4141"
     lateinit var retrofit: Retrofit
     lateinit var service: AuthService
     lateinit var ctx: Context
