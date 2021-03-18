@@ -7,7 +7,11 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import com.salesianostriana.dam.artspace.R
+import com.salesianostriana.dam.artspace.poko.RegisterRequest
 import com.salesianostriana.dam.artspace.retrofit.AuthService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 
 class RegisterActivity : AppCompatActivity() {
@@ -50,7 +54,13 @@ class RegisterActivity : AppCompatActivity() {
             val location = etLocation.text.toString()
             val address = etAddress.text.toString()
             if(username.isNotBlank() && email.isNotBlank() && fullname.isNotBlank() && password.isNotBlank() && location.isNotBlank() && address.isNotBlank()){
-
+                    service.register(RegisterRequest(username,fullname,email,password,address,location)).enqueue(object :Callback<Void>{
+                        override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                           if(response.code() == 201){
+                               
+                           }
+                        }
+                    })
             }else{
                 Log.i(":::TAG","Alguno de los campos no es correcto")
             }
