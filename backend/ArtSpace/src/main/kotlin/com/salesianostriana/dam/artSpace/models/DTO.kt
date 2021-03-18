@@ -48,18 +48,3 @@ data class UserEditDTO(
     var location: String,
     var description : String
 )
-
-data class ArtWorkNewDTO(
-    var tittle : String,
-    var price : Double,
-    var description: String,
-    var material : String,
-    )
-
-data class ArtWorkDTO(
-    var tittle : String,
-    var price : Double,
-    var description: String,
-    var material : String,
-    var images : MutableList<ImageArtWork>?
-    )
