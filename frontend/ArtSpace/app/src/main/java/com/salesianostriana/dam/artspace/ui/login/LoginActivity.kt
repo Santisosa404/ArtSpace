@@ -83,6 +83,7 @@ class LoginActivity : AppCompatActivity() {
             }
         })
         btnRegistro.setOnClickListener {
+            Log.i(":::TAG","Entro")
             val intent = Intent(ctx, RegisterActivity::class.java)
             startActivity(intent)
         }

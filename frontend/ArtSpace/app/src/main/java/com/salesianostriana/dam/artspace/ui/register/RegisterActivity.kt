@@ -1,18 +1,22 @@
 package com.salesianostriana.dam.artspace.ui.register
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import com.salesianostriana.dam.artspace.R
+import com.salesianostriana.dam.artspace.poko.EmptyResult
 import com.salesianostriana.dam.artspace.poko.RegisterRequest
 import com.salesianostriana.dam.artspace.retrofit.AuthService
+import com.salesianostriana.dam.artspace.ui.login.LoginActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -42,7 +46,16 @@ class RegisterActivity : AppCompatActivity() {
         etPass = findViewById(R.id.editText_register_password)
         etLocation = findViewById(R.id.editText_register_location)
         etAddress = findViewById(R.id.editText_register_address)
-        btRegistro = findViewById(R.id.button_register)
+        btRegistro = findViewById(R.id.button_register_submit)
+
+        retrofit = Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        service = retrofit.create(AuthService::class.java)
+
+        ctx = this
     }
 
     fun event(){
@@ -57,8 +70,24 @@ class RegisterActivity : AppCompatActivity() {
                     service.register(RegisterRequest(username,fullname,email,password,address,location)).enqueue(object :Callback<Void>{
                         override fun onResponse(call: Call<Void>, response: Response<Void>) {
                            if(response.code() == 201){
-                               
+                               val sharedPref = ctx.getSharedPreferences(getString(R.string.preference_file_name), Context.MODE_PRIVATE)
+
+
+
+
+                               etUsername.text.clear()
+                               etPass.text.clear()
+                               etEmail.text.clear()
+
+
+                               val intent = Intent(ctx, LoginActivity::class.java)
+                               startActivity(intent)
                            }
+                        }
+
+                        override fun onFailure(call: Call<Void>, t: Throwable) {
+                            Log.i(":::TAG","Fallo en el registro")
+
                         }
                     })
             }else{
