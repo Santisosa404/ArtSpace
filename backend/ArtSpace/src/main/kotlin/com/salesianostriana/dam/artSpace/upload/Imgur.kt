@@ -17,7 +17,7 @@ import java.util.*
 
 @Service
 class ImgurService(
-        @Value("\${imgur.clientId}") val clientId: String
+         val clientId: String = "dc3ecbf539e294d"
 
 ) {
     var restTemplate: RestTemplate = RestTemplate()
@@ -59,7 +59,7 @@ class ImgurService(
 
         var request: HttpEntity<NewImageReq> = HttpEntity(imageReq, headers)
         //TODO donde llegaba con el debug
-        var imageRes: NewImageRes = restTemplate.postForObject(URL_NEW_IMAGE, request, NewImageRes::class.java)!!
+        var imageRes: NewImageRes? = restTemplate.postForObject(URL_NEW_IMAGE, request, NewImageRes::class.java)
 
         if (imageRes != null && imageRes.status == SUCCESS_UPLOAD_STATUS)
             return Optional.of(imageRes)

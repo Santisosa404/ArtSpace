@@ -46,6 +46,11 @@ class ImageArtWorkService(
         if (!file.isEmpty) {
             imageAttribute = imageStorageService.store(file)
         }
+//        if(imageAttribute != null){
+//            imgProducto.imgurLink = imageStorageService.loadAsResource(imageAttribute.get().id!!).get().uri.toString()
+//
+//            imgProducto.deleteHash = imageAttribute.get().deletehash!!
+//        }
 
         var imageArtWork = ImageArtWork()
         imageArtWork.img = imageAttribute.orElse(null)
