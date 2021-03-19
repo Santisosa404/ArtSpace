@@ -11,6 +11,9 @@ class ArtWorkService(
 ) {
     fun save(artWork : ArtWork) = artR.save(artWork)
     fun existById(id : UUID) = artR.existsById(id)
+    fun findById(id: UUID) = artR.findById(id)
+    fun findAll()=artR.findAll()
+    fun deleteById(id: UUID)= artR.deleteById(id)
 
 
 }
