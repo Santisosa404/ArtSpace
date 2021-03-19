@@ -46,4 +46,20 @@ class ArtWork(
         fun toNewDTO() = ArtWorkNewDTO(this.tittle,this.price,this.description,this.material)
         fun toDTO() = ArtWorkDTO(this.tittle,this.price,this.description,this.material,this.images.map { it.toDTO() } as MutableList<ImageArtWorkDTO>,this.likesGotten.map { it.toUserRespDTO() } as MutableList<UserRespDTO>,this.id)
 
+        override fun equals(other: Any?): Boolean {
+                if (this === other) return true
+                if (javaClass != other?.javaClass) return false
+
+                other as ArtWork
+
+                if (id != other.id) return false
+
+                return true
+        }
+
+        override fun hashCode(): Int {
+                return id?.hashCode() ?: 0
+        }
+
+
 }
