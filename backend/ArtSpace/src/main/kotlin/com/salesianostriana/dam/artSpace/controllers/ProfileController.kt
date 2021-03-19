@@ -20,13 +20,13 @@ class ProfileController(
 ) {
 
 
-    @GetMapping("/")
+    @GetMapping
     fun profileDet(@AuthenticationPrincipal user: User): ResponseEntity<Optional<UserDTO>> {
         return ResponseEntity.status(200).body(uS.findById(user.id!!).map { it.toUserDTO() })
     }
 
     @GetMapping("/{id}")
-    fun profileId(@RequestParam id : UUID): ResponseEntity<Optional<UserDTO>> {
+    fun profileId(@PathVariable id : UUID): ResponseEntity<Optional<UserDTO>> {
         return if (uS.existById(id))
             ResponseEntity.status(200).body(uS.findById(id).map { it.toUserDTO() })
         else

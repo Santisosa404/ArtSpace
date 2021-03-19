@@ -17,4 +17,7 @@ class ImageArtWork(
 
         @Id @GeneratedValue var id: UUID?=null
 ) {
+
+
+        fun toDTO() = ImageArtWorkDTO(this.img,this.id)
 }

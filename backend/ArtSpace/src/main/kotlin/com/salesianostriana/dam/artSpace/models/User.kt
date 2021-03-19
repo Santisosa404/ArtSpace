@@ -106,5 +106,5 @@ class User(
 
     fun toUserRespDTO() = UserRespDTO(this.username, this.fullname, this.email, this.id)
 
-    fun toUserDTO() = UserDTO(this.username, this.email, this.address, this.location, this.artWorks, this.following, this.id)
+    fun toUserDTO() = UserDTO(this.username, this.email, this.address, this.location, this.artWorks?.map { it.toDTO() } as MutableList<ArtWorkDTO>, this.following.map { it.toUserRespDTO() } as MutableList<UserRespDTO>, this.id)
 }

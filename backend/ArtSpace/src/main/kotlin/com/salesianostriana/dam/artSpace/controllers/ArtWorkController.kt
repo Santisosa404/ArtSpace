@@ -4,6 +4,7 @@ import com.salesianostriana.dam.artSpace.models.*
 import com.salesianostriana.dam.artSpace.services.ArtWorkService
 import com.salesianostriana.dam.artSpace.services.ImageArtWorkService
 import com.salesianostriana.dam.artSpace.upload.ImgurBadRequest
+import org.springframework.http.HttpEntity
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -28,6 +29,16 @@ class ArtWorkController(
         artWork.addImg(iReal)
         artS.save(artWork)
         return ResponseEntity.status(HttpStatus.CREATED).build()
+    }
+
+    @GetMapping("/")
+    fun listAll(): HttpEntity<*> {
+       var all =  artS.findAll()
+       return if (all.isNotEmpty())
+           ResponseEntity.status(200).body(all.map { it.toDTO() })
+        else
+            ResponseEntity.EMPTY
+
     }
 
 

@@ -44,6 +44,6 @@ class ArtWork(
                 this.images.remove(imageArtWork)
         }
         fun toNewDTO() = ArtWorkNewDTO(this.tittle,this.price,this.description,this.material)
-        fun toDTO() = ArtWorkDTO(this.tittle,this.price,this.description,this.material,this.images)
+        fun toDTO() = ArtWorkDTO(this.tittle,this.price,this.description,this.material,this.images.map { it.toDTO() } as MutableList<ImageArtWorkDTO>,this.likesGotten.map { it.toUserRespDTO() } as MutableList<UserRespDTO>,this.id)
 
 }
