@@ -1,5 +1,7 @@
 package com.salesianostriana.dam.artSpace.models
 
+import org.hibernate.annotations.LazyCollection
+import org.hibernate.annotations.LazyCollectionOption
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import java.util.*
@@ -17,38 +19,49 @@ class User(
     var location: String,
     @Lob var description: String,
 
-
-        //Asociacion con ArtWork composicion
-    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
-        var artWorks: MutableList<ArtWork>? = mutableListOf(),
-
-        //Asociacion likes con ArtWork
-    @ManyToMany(fetch = FetchType.EAGER)
-        @JoinTable(
-                joinColumns = [JoinColumn(name = "user_id")],
-                inverseJoinColumns = [JoinColumn(name = "post_id")]
-        )
-        var likes: MutableList<ArtWork> = mutableListOf(),
-
-
-        //Asociacion con  follow usuario
-    @ManyToMany
-        var following: MutableList<User> = mutableListOf(),
-
-        //Asociacion con Cart
-    @OneToMany(mappedBy = "userOrder")
-    var carts : MutableList<Cart> = mutableListOf(),
-
     @ElementCollection(fetch = FetchType.EAGER)
     val roles: MutableSet<String> = HashSet(),
+    //Asociacion con ArtWork composicion
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
+    @LazyCollection(LazyCollectionOption.FALSE)
+    var artWorks: MutableList<ArtWork>? = mutableListOf(),
+
+    //Asociacion likes con ArtWork
+    @ManyToMany
+    @JoinTable(
+        joinColumns = [JoinColumn(name = "user_id")],
+        inverseJoinColumns = [JoinColumn(name = "post_id")]
+    )
+    @LazyCollection(LazyCollectionOption.FALSE)
+    var likes: MutableList<ArtWork> = mutableListOf(),
+
+
+    //Asociacion con  follow usuario
+    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
+    var following: MutableList<User> = mutableListOf(),
+
+    //Asociacion con Cart
+    @OneToMany(mappedBy = "userOrder")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    var carts: MutableList<Cart> = mutableListOf(),
+
+
     private val nonExpired: Boolean = true,
     private val nonLocked: Boolean = true,
-    private val enabled : Boolean=true,
-    private val credentialsNonExpired : Boolean = true,
+    private val enabled: Boolean = true,
+    private val credentialsNonExpired: Boolean = true,
 
     @Id @GeneratedValue var id: UUID? = null
-): UserDetails {
+) : UserDetails {
 
+    fun setPassword(pass: String) {
+        this.password = pass
+    }
+
+    fun setUsername(username: String) {
+        this.username = username
+    }
 
     /**
      * Metodos auxiliares composicion User -> ArtWork
@@ -67,13 +80,17 @@ class User(
      * Metodos auxiliares  likes
      */
     fun addLike(artWork: ArtWork) {
-        likes.add(artWork)
-        artWork.likesGotten.add(this)
+        if (!likes.contains(artWork)) {
+            likes.add(artWork)
+            artWork.likesGotten.add(this)
+        }
     }
 
     fun deleteLike(artWork: ArtWork) {
-        likes.remove(artWork)
-        artWork.likesGotten.remove(this)
+        if (likes.contains(artWork)) {
+            likes.remove(artWork)
+            artWork.likesGotten.remove(this)
+        }
     }
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> =
@@ -89,8 +106,16 @@ class User(
 
     override fun isCredentialsNonExpired(): Boolean = this.credentialsNonExpired
 
-    override fun isEnabled(): Boolean  = this.enabled
+    override fun isEnabled(): Boolean = this.enabled
 
-    fun toUserRespDTO() = UserRespDTO(this.username,this.fullname,this.email,this.id)
+    fun toUserRespDTO() = UserRespDTO(this.username, this.fullname, this.email, this.id)
 
+    fun toUserDTO() = UserDTO(
+        this.username,
+        this.email,
+        this.address,
+        this.location,
+        this.artWorks?.map { it.toDTO() } as MutableList<ArtWorkDTO>,
+        this.following.map { it.toUserRespDTO() } as MutableList<UserRespDTO>,
+        this.id)
 }
