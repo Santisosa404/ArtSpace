@@ -14,7 +14,7 @@ class ArtWork(
         var user: User?,
 
         //Asociacion likes con User
-        @ManyToMany(mappedBy = "likes")
+        @ManyToMany(mappedBy = "likes",cascade = [CascadeType.ALL])
         var likesGotten: MutableList<User> = mutableListOf(),
 
         //Asociacion con ImageArtWorkRepository composicion
