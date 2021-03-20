@@ -3,6 +3,7 @@ package com.salesianostriana.dam.artSpace.controllers
 import com.salesianostriana.dam.artSpace.models.*
 import com.salesianostriana.dam.artSpace.repositories.ArtWorkRepository
 import com.salesianostriana.dam.artSpace.services.ArtWorkService
+import com.salesianostriana.dam.artSpace.services.CommentService
 import com.salesianostriana.dam.artSpace.services.ImageArtWorkService
 import com.salesianostriana.dam.artSpace.upload.ImgurBadRequest
 import org.springframework.http.HttpEntity
@@ -20,7 +21,7 @@ import java.util.*
 class ArtWorkController(
     private val imgS: ImageArtWorkService,
     private val artS: ArtWorkService,
-    private val artR : ArtWorkRepository
+    private val commS: CommentService
 ) {
 
 
@@ -54,11 +55,45 @@ class ArtWorkController(
 
         if (artS.existById(id)) {
             var art = artS.findById(id).get()
-            artR.delete(art)
+            artS.delete(art)
         }
-            return ResponseEntity.noContent().build()
+        return ResponseEntity.noContent().build()
     }
 
+    @GetMapping("/{id}")
+    fun getDetails(@PathVariable id: UUID): ResponseEntity<ArtWorkDTO> {
+        var art = artS.findById(id).get()
+        return ResponseEntity.ok().body(art.toDTO())
+    }
+
+    @PutMapping("/{id}")
+    fun editArtWork(@PathVariable id: UUID, @RequestBody artWorkEditDTO: ArtWorkEditDTO): ResponseEntity<Any> {
+        return if (artS.existById(id)) {
+            artS.findById(id).map {
+                it.tittle = artWorkEditDTO.tittle
+                it.description = artWorkEditDTO.description
+                it.material = artWorkEditDTO.material
+                it.price = artWorkEditDTO.price
+                artS.save(it)
+            }
+            ResponseEntity.status(204).build()
+        } else {
+            ResponseEntity.notFound().build()
+        }
+    }
+
+    @PostMapping("/{id}/comment")
+    fun addComment(@PathVariable id: UUID, @RequestBody comment: Comment): ResponseEntity<Any> {
+        return if (artS.existById(id)) {
+            var art = artS.findById(id).get()
+            art.addComment(comment)
+            commS.save(comment)
+            artS.save(art)
+            ResponseEntity.ok().build()
+        } else {
+            ResponseEntity.notFound().build()
+        }
+    }
 
 }
 

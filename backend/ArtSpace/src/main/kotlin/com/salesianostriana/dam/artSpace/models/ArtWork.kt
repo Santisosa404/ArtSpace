@@ -43,8 +43,22 @@ class ArtWork(
                 imageArtWork.artWork = null
                 this.images.remove(imageArtWork)
         }
+
+        /**
+         * Metodos helper comment
+         */
+        fun addComment(comment: Comment){
+                comment.artWork = this
+                this.comments.add(comment)
+        }
+
+        fun deleteComment(comment: Comment){
+                comment.artWork = null
+                this.comments.remove(comment)
+        }
+
         fun toNewDTO() = ArtWorkNewDTO(this.tittle,this.price,this.description,this.material)
-        fun toDTO() = ArtWorkDTO(this.tittle,this.price,this.description,this.material,this.images.map { it.toDTO() } as MutableList<ImageArtWorkDTO>,this.likesGotten.map { it.toUserRespDTO() } as MutableList<UserRespDTO>,this.id)
+        fun toDTO() = ArtWorkDTO(this.tittle,this.price,this.description,this.material,this.images.map { it.toDTO() } as MutableList<ImageArtWorkDTO>,this.likesGotten.map { it.toUserRespDTO() } as MutableList<UserRespDTO>, this.comments.map { it.toDTO() } as MutableList,this.id)
 
         override fun equals(other: Any?): Boolean {
                 if (this === other) return true

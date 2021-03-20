@@ -55,8 +55,14 @@ data class ArtWorkNewDTO(
     var price : Double,
     var description: String,
     var material : String,
-
     )
+
+data class ArtWorkEditDTO(
+    var tittle : String,
+    var price : Double,
+    var description: String,
+    var material : String
+)
 
 data class ArtWorkDTO(
     var tittle : String,
@@ -65,10 +71,15 @@ data class ArtWorkDTO(
     var material : String,
     var images : MutableList<ImageArtWorkDTO>?,
     var likes : MutableList<UserRespDTO>,
+    var comments : MutableList<CommentDTO>,
     var id: UUID?
     )
 
 data class ImageArtWorkDTO(
     var img : ImgurImageAttribute?,
     var id: UUID?
+)
+
+data class  CommentDTO(
+    @Lob var body : String
 )

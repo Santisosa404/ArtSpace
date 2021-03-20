@@ -11,4 +11,5 @@ class Comment(
         var artWork: ArtWork?,
         @Id @GeneratedValue var id: UUID?=null
 ) {
+        fun toDTO() = CommentDTO(this.body)
 }
