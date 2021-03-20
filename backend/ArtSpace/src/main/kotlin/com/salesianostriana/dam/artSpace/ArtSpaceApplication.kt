@@ -33,6 +33,7 @@ class ArtSpaceApplication {
         var art3 = ArtWork("Cenicero barro",5.0,"Cenicero basico de arcilla","Arcilla",user1)
         var art4 = ArtWork("Campanilla campana",20.10,"Descripcion de los campana","Poliester",user3)
         var art5 = ArtWork("El interior de la caverna de Platón",21.50,"Aquella vez en cazalla no habia agua caliente","Poliester",user4)
+        var art6 = ArtWork("Examen de SQL",20.10,"Si has conseguido esto eres un buen padawan mostrando las publicsaciones de gente a la que no sigues","ORGULLO",user2)
 
         //Agregacion de post
         user3.addPost(art1)
@@ -40,6 +41,7 @@ class ArtSpaceApplication {
         user1.addPost(art3)
         user3.addPost(art4)
         user4.addPost(art5)
+        user2.addPost(art6)
 
         //Seguimiento
         user1.addFollower(user3)
@@ -52,7 +54,7 @@ class ArtSpaceApplication {
 
         //Guardado
         uR.saveAll(mutableListOf(user1,user2,user3,user4))
-        aR.saveAll(mutableListOf(art1,art2,art3,art4,art5))
+        aR.saveAll(mutableListOf(art1,art2,art3,art4,art5,art6))
 
     }
 }

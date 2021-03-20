@@ -18,5 +18,7 @@ class ArtWorkService(
 
     fun allFollowingArtWorks(id: UUID) = artR.followingArtWorks(id)
 
+    fun allNotFollowingArtsWorks(id: UUID) = artR.notFollowingArtWorks(id)
+
 
 }
