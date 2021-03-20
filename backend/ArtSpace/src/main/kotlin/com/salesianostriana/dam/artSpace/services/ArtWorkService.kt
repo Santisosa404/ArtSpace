@@ -16,5 +16,7 @@ class ArtWorkService(
     fun deleteById(id: UUID)= artR.deleteById(id)
     fun delete(artWork: ArtWork) = artR.delete(artWork)
 
+    fun allFollowingArtWorks(id: UUID) = artR.followingArtWorks(id)
+
 
 }

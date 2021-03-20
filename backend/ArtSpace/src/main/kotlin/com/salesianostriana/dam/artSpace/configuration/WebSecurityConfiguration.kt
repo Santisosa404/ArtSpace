@@ -44,7 +44,7 @@ class WebSecurityConfiguration(
             .antMatchers("/h2-console/**").permitAll()
             .antMatchers(HttpMethod.POST, "/auth/login", "/auth/register").permitAll()
             .antMatchers(HttpMethod.GET, "/tendencias/").permitAll()
-            .antMatchers("/seguidos/**","/tendencias/**","/profile/**","/artwork/**","/cart/**","/like/**","/follow/**").hasRole("USER")
+            .antMatchers("/seguidos/**","/tendencias/**","/profile/**","/artwork/**","/cart/**","/like/**","/follow/**","/following/**").hasRole("USER")
             .anyRequest().hasRole("ADMIN")
 
         //Filtro para autenticar a traves del token
