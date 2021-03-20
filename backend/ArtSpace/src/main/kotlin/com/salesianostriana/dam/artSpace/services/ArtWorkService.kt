@@ -14,6 +14,7 @@ class ArtWorkService(
     fun findById(id: UUID) = artR.findById(id)
     fun findAll()=artR.findAll()
     fun deleteById(id: UUID)= artR.deleteById(id)
+    fun delete(artWork: ArtWork) = artR.delete(artWork)
 
 
 }

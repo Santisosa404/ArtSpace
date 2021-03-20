@@ -34,8 +34,8 @@ class ProfileController(
     }
 
     @PutMapping("/")
-    fun profileEdit(@AuthenticationPrincipal user: User, @RequestBody userEdit :  UserEditDTO) {
-        if (uS.existById(user.id!!)){
+    fun profileEdit(@AuthenticationPrincipal user: User, @RequestBody userEdit :  UserEditDTO) : ResponseEntity<Any> {
+        return if (uS.existById(user.id!!)){
             uS.findById(user.id!!).map {
                 it.username = userEdit.username
                 it.password = passEnc.encode(userEdit.password)
@@ -47,9 +47,9 @@ class ProfileController(
                 uS.save(it)
             }
             //TODO
-            ResponseEntity.status(204)
+            ResponseEntity.status(204).build()
         }else{
-           ResponseEntity.notFound()
+           ResponseEntity.notFound().build()
         }
     }
 

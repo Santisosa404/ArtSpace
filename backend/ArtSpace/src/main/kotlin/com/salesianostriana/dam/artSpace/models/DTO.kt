@@ -55,8 +55,14 @@ data class ArtWorkNewDTO(
     var price : Double,
     var description: String,
     var material : String,
-
     )
+
+data class ArtWorkEditDTO(
+    var tittle : String,
+    var price : Double,
+    var description: String,
+    var material : String
+)
 
 data class ArtWorkDTO(
     var tittle : String,

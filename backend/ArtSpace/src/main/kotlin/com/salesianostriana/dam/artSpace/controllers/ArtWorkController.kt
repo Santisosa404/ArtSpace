@@ -54,11 +54,33 @@ class ArtWorkController(
 
         if (artS.existById(id)) {
             var art = artS.findById(id).get()
-            artR.delete(art)
+            artS.delete(art)
         }
             return ResponseEntity.noContent().build()
     }
 
+    @GetMapping("/{id}")
+    fun getDetails(@PathVariable id: UUID): ResponseEntity<ArtWorkDTO> {
+        var art = artS.findById(id).get()
+        return ResponseEntity.ok().body(art.toDTO())
+    }
+
+    @PutMapping("/{id}")
+    fun editArtWork(@PathVariable id: UUID, @RequestBody artWorkEditDTO: ArtWorkEditDTO) : ResponseEntity<Any>{
+      return if (artS.existById(id)){
+           artS.findById(id).map {
+               it.tittle = artWorkEditDTO.tittle
+               it.description = artWorkEditDTO.description
+               it.material = artWorkEditDTO.material
+               it.price = artWorkEditDTO.price
+               artS.save(it)
+           }
+           ResponseEntity.status(204).build()
+       }else{
+           ResponseEntity.notFound().build()
+      }
+
+    }
 
 }
 
