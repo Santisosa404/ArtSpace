@@ -74,6 +74,14 @@ data class ArtWorkDTO(
     var comments : MutableList<CommentDTO>,
     var id: UUID?
     )
+data class ArtWorkCartDTO(
+    var tittle : String,
+    var price : Double,
+    var description: String,
+    var material : String,
+    var images : MutableList<ImageArtWorkDTO>? = mutableListOf(),
+    var id: UUID?
+    )
 
 data class ImageArtWorkDTO(
     var img : ImgurImageAttribute?,
@@ -82,4 +90,10 @@ data class ImageArtWorkDTO(
 
 data class  CommentDTO(
     @Lob var body : String
+)
+
+data class CartDTO(
+    var orders : MutableList<ArtWorkCartDTO>,
+    var finalPrice : Double,
+    var id: UUID?
 )
