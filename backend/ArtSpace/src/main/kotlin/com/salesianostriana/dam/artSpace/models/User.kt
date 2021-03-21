@@ -69,7 +69,7 @@ class User(
     }
 
     /**
-     * Metodos auxiliares composicion User -> ArtWork
+     * Metodos auxiliares  ArtWork
      */
     fun addPost(artWork: ArtWork) {
         artWork.user = this
@@ -102,14 +102,30 @@ class User(
      * Metodos auxiliares following
      *
      */
-    fun addFollower(user: User){
-            user.followers.add(this)
-            this.following.add(user)
+    fun addFollower(user: User) {
+        user.followers.add(this)
+        this.following.add(user)
     }
-    fun deleteFollower(user: User){
+
+
+    fun deleteFollower(user: User) {
         this.following.remove(user)
         user.followers.remove(this)
     }
+
+    /**
+     * Metodos auxiliares carrito
+     */
+    fun addCart(cart: Cart) {
+        cart.userOrder = this
+        this.carts.add(cart)
+    }
+
+    fun deleteCart(cart: Cart) {
+        cart.userOrder = null
+        this.carts.remove(cart)
+    }
+
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> =
         roles.map { SimpleGrantedAuthority("ROLE_$it") }.toMutableSet()
