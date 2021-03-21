@@ -17,7 +17,7 @@ class TrendingTopicsController (
 
     @GetMapping("/")
     fun getNotFollowing(@AuthenticationPrincipal user: User): ResponseEntity<List<ArtWorkDTO>> {
-        var artWorks = artS.allNotFollowingArtsWorks(user.id!!)
+        var artWorks = artS.allNotFollowingArtsWorks(user.following,user.id!!)
         return ResponseEntity.ok().body(artWorks.map { it.toDTO() })
     }
 }
