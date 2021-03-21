@@ -42,7 +42,6 @@ class JwtAuthorizationFilter(
 
             log.info("No se ha podido establecer la autenticación del usuario en el contexto de seguridad")
             log.info(ex.message)
-            println(ex.printStackTrace())
         }
 
     }
