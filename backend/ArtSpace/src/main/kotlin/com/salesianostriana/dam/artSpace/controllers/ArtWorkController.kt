@@ -1,6 +1,5 @@
 package com.salesianostriana.dam.artSpace.controllers
 
-import com.salesianostriana.dam.artSpace.exceptions.EntityNotfoundException
 import com.salesianostriana.dam.artSpace.exceptions.ListEntityNotFoundException
 import com.salesianostriana.dam.artSpace.exceptions.SingleEntityNotFoundException
 import com.salesianostriana.dam.artSpace.models.*
@@ -13,7 +12,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 import java.util.*
-
+import javax.validation.Valid
 @RestController
 @RequestMapping("/artwork")
 class ArtWorkController(
@@ -25,7 +24,7 @@ class ArtWorkController(
 
     @PostMapping("/")
     fun creatArtWork(
-        @RequestPart artWorkDTO: ArtWorkNewDTO,
+        @Valid @RequestPart artWorkDTO: ArtWorkNewDTO,
         @RequestPart file: MultipartFile,
         @AuthenticationPrincipal user: User
     ): ResponseEntity<ArtWorkNewDTO> {
@@ -64,7 +63,7 @@ class ArtWorkController(
     }
 
     @PutMapping("/{id}")
-    fun editArtWork(@PathVariable id: UUID, @RequestBody artWorkEditDTO: ArtWorkEditDTO): ResponseEntity<Any> {
+    fun editArtWork(@PathVariable id: UUID, @Valid @RequestBody artWorkEditDTO: ArtWorkEditDTO): ResponseEntity<Any> {
             artS.findById(id).map {
                 it.tittle = artWorkEditDTO.tittle
                 it.description = artWorkEditDTO.description
@@ -78,7 +77,7 @@ class ArtWorkController(
     }
 
         @PostMapping("/{id}/comment")
-        fun addComment(@PathVariable id: UUID, @RequestBody comment: Comment): ResponseEntity<Any> {
+        fun addComment(@PathVariable id: UUID, @Valid @RequestBody comment: Comment): ResponseEntity<Any> {
             return if (artS.existById(id)) {
                 var art = artS.findById(id).get()
                 art.addComment(comment)

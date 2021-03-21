@@ -5,13 +5,12 @@ import com.salesianostriana.dam.artSpace.models.User
 import com.salesianostriana.dam.artSpace.models.UserDTO
 import com.salesianostriana.dam.artSpace.models.UserEditDTO
 import com.salesianostriana.dam.artSpace.services.UserService
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.crypto.password.PasswordEncoder
-import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
 import java.util.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/profile")
@@ -35,7 +34,7 @@ class ProfileController(
     }
 
     @PutMapping("/")
-    fun profileEdit(@AuthenticationPrincipal user: User, @RequestBody userEdit :  UserEditDTO) : ResponseEntity<Any> {
+    fun profileEdit(@AuthenticationPrincipal user: User, @Valid @RequestBody userEdit :  UserEditDTO) : ResponseEntity<Any> {
             uS.findById(user.id!!).map {
                 it.username = userEdit.username
                 it.password = passEnc.encode(userEdit.password)

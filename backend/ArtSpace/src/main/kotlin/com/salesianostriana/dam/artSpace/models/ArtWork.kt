@@ -2,12 +2,15 @@ package com.salesianostriana.dam.artSpace.models
 
 import java.util.*
 import javax.persistence.*
-
+import javax.validation.constraints.*
 @Entity
 class ArtWork(
+    @field:NotBlank(message="{artWork.tittle.notBlank}")
     var tittle: String,
+    @get:Min(value=1)
     var price: Double,
     @Lob var description: String,
+    @get:NotBlank(message = "{artWork.material.notBlank}")
     var material: String,
     //Asociacion con User composicion
     @ManyToOne
