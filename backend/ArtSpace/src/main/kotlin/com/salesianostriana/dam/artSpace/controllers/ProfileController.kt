@@ -53,4 +53,8 @@ class ProfileController(
         }
     }
 
+    @GetMapping("/all")
+    fun listAllProfiles(): ResponseEntity<List<UserDTO>> {
+        return ResponseEntity.ok().body(uS.findAll().map { it.toUserDTO() })
+    }
 }

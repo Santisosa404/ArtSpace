@@ -41,6 +41,11 @@ class User(
     @LazyCollection(LazyCollectionOption.FALSE)
     var following: MutableList<User> = mutableListOf(),
 
+    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
+    var followers: MutableList<User> = mutableListOf(),
+
+
     //Asociacion con Cart
     @OneToMany(mappedBy = "userOrder")
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -93,6 +98,19 @@ class User(
         }
     }
 
+    /**
+     * Metodos auxiliares following
+     *
+     */
+    fun addFollower(user: User){
+            user.followers.add(this)
+            this.following.add(user)
+    }
+    fun deleteFollower(user: User){
+        this.following.remove(user)
+        user.followers.remove(this)
+    }
+
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> =
         roles.map { SimpleGrantedAuthority("ROLE_$it") }.toMutableSet()
 
@@ -118,4 +136,21 @@ class User(
         this.artWorks?.map { it.toDTO() } as MutableList<ArtWorkDTO>,
         this.following.map { it.toUserRespDTO() } as MutableList<UserRespDTO>,
         this.id)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as User
+
+        if (id != other.id) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return id?.hashCode() ?: 0
+    }
+
+
 }
