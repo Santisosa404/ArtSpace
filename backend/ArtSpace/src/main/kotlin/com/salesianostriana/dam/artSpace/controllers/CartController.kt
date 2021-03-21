@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.artSpace.controllers
 
+import com.salesianostriana.dam.artSpace.exceptions.ListEntityNotFoundException
 import com.salesianostriana.dam.artSpace.models.*
 import com.salesianostriana.dam.artSpace.services.ArtWorkService
 import com.salesianostriana.dam.artSpace.services.CartDetailsService
@@ -22,8 +23,8 @@ class CartController(
 
     @PostMapping("/{id}")
     fun addToCart(@PathVariable id: UUID, @AuthenticationPrincipal user: User): ResponseEntity<Any> {
-        if (artS.existById(id)) {
-            var artWork = artS.findById(id).get()
+
+            var artWork = artS.findById(id).orElseThrow { ListEntityNotFoundException(ArtWork::class.java) }
             if (user.carts.isNotEmpty()) {
                 user.carts.last().ordering.last().addOrderArt(artWork)
                 user.carts.last().ordering.last().setPrecio()
@@ -49,33 +50,29 @@ class CartController(
 
             }
             return ResponseEntity.status(HttpStatus.ACCEPTED).build()
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build()
-        }
+
     }
 
     @DeleteMapping("/{id}")
     fun deleteFromCart(@PathVariable id: UUID, @AuthenticationPrincipal user: User) : ResponseEntity<Any>{
-        return if (artS.existById(id)){
-            var artWork = artS.findById(id).get()
+
+            var artWork = artS.findById(id).orElseThrow { ListEntityNotFoundException(ArtWork::class.java) }
             user.carts.last().ordering.last().removeOrderArt(artWork)
             user.carts.last().ordering.last().setPrecio()
             user.carts.last().setPrecio()
             cartDS.save(user.carts.last().ordering.last())
             cS.save(user.carts.last())
             uS.save(user)
-            ResponseEntity.status(HttpStatus.NO_CONTENT).build()
-        }else{
-            ResponseEntity.status(HttpStatus.NOT_FOUND).build()
-        }
+          return ResponseEntity.status(HttpStatus.NO_CONTENT).build()
+
     }
 
     @GetMapping("/")
     fun getCarrito(@AuthenticationPrincipal user: User): ResponseEntity<CartDTO> {
-        var userOrder = user.carts.last().ordering.last().orderArtWork.map { it.toArtWorkCartDTO() } as MutableList
-        var id = user.carts.last().id
-        var price = user.carts.last().finalPrice
-        return ResponseEntity.ok().body(CartDTO(userOrder,price!!,id))
+        return if (user.carts.isNotEmpty())
+         ResponseEntity.ok().body(CartDTO(user.carts.last().ordering.last().orderArtWork.map { it.toArtWorkCartDTO() } as MutableList,user.carts.last().finalPrice!!,user.carts.last().id))
+        else
+            ResponseEntity.ok(CartDTO(mutableListOf(),0.0))
     }
 
 }

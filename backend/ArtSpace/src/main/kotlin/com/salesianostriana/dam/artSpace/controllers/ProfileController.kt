@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.artSpace.controllers
 
+import com.salesianostriana.dam.artSpace.exceptions.SingleEntityNotFoundException
 import com.salesianostriana.dam.artSpace.models.User
 import com.salesianostriana.dam.artSpace.models.UserDTO
 import com.salesianostriana.dam.artSpace.models.UserEditDTO
@@ -35,7 +36,6 @@ class ProfileController(
 
     @PutMapping("/")
     fun profileEdit(@AuthenticationPrincipal user: User, @RequestBody userEdit :  UserEditDTO) : ResponseEntity<Any> {
-        return if (uS.existById(user.id!!)){
             uS.findById(user.id!!).map {
                 it.username = userEdit.username
                 it.password = passEnc.encode(userEdit.password)
@@ -45,12 +45,10 @@ class ProfileController(
                 it.location = userEdit.location
                 it.description = userEdit.description
                 uS.save(it)
+            }.orElseThrow{
+                SingleEntityNotFoundException(user.id!!.toString(),User::class.java)
             }
-            //TODO
-            ResponseEntity.status(204).build()
-        }else{
-           ResponseEntity.notFound().build()
-        }
+            return ResponseEntity.status(204).build()
     }
 
     @GetMapping("/all")

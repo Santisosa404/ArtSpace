@@ -1,5 +1,7 @@
 package com.salesianostriana.dam.artSpace.controllers
 
+import com.salesianostriana.dam.artSpace.exceptions.ListEntityNotFoundException
+import com.salesianostriana.dam.artSpace.exceptions.SingleEntityNotFoundException
 import com.salesianostriana.dam.artSpace.models.User
 import com.salesianostriana.dam.artSpace.services.UserService
 import org.springframework.http.ResponseEntity
@@ -16,27 +18,20 @@ class FollowController(
 
     @PostMapping("/{id}")
     fun followUser(@PathVariable id : UUID, @AuthenticationPrincipal user: User) : ResponseEntity<Any>{
-        return if(uS.existById(id)) {
-            var userToFollow = uS.findById(id).get()
+            var userToFollow = uS.findById(id).orElseThrow{ SingleEntityNotFoundException(id.toString(),User::class.java)}
             user.addFollower(userToFollow)
             uS.save(userToFollow)
             uS.save(user)
-            ResponseEntity.ok().build()
-        } else{
-            ResponseEntity.notFound().build()
-        }
+          return  ResponseEntity.ok().build()
     }
+
     @DeleteMapping("/{id}")
     fun unfollowUser(@PathVariable id : UUID, @AuthenticationPrincipal user: User) : ResponseEntity<Any>{
-        return if(uS.existById(id)) {
-            var userToFollow = uS.findById(id).get()
+            var userToFollow = uS.findById(id).orElseThrow { SingleEntityNotFoundException(id.toString(),User::class.java) }
             user.deleteFollower(userToFollow)
             uS.save(user)
             uS.save(userToFollow)
-            ResponseEntity.noContent().build()
-        } else{
-            ResponseEntity.notFound().build()
-        }
+          return  ResponseEntity.noContent().build()
     }
 
 

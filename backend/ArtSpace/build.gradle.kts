@@ -6,8 +6,14 @@ plugins {
 	kotlin("jvm") version "1.4.30"
 	kotlin("plugin.spring") version "1.4.30"
 	kotlin("plugin.jpa") version "1.4.30"
+	kotlin("plugin.allopen") version "1.4.21"
 }
 
+allOpen {
+	annotation("javax.persistence.Entity")
+	annotation("javax.persistence.Embeddable")
+	annotation("javax.persistence.MappedSuperclass")
+}
 group = "com.salesianostriana.dam"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
@@ -24,9 +30,9 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation(  group = "io.jsonwebtoken", name = "jjwt-api", version = "0.11.2")
+	implementation("org.springframework.boot:spring-boot-starter-validation")
 	runtimeOnly(group = "io.jsonwebtoken", name =  "jjwt-jackson", version = "0.11.2")
 	runtimeOnly( group = "io.jsonwebtoken", name ="jjwt-impl", version = "0.11.2")
-//	runtimeOnly()
 	runtimeOnly("com.h2database:h2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")

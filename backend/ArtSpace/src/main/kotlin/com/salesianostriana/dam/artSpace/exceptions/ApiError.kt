@@ -1,11 +1,9 @@
-package com.g2t4.realState.error
+package com.salesianostriana.dam.artSpace.exceptions
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonInclude
 import org.springframework.http.HttpStatus
-import java.time.LocalDate
 import java.time.LocalDateTime
-import javax.management.monitor.StringMonitor
 
 data class ApiError (
     val estado: HttpStatus,
