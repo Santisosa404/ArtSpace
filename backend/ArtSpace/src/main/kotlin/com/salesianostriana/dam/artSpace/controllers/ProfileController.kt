@@ -26,11 +26,8 @@ class ProfileController(
     }
 
     @GetMapping("/{id}")
-    fun profileId(@PathVariable id : UUID): ResponseEntity<Optional<UserDTO>> {
-        return if (uS.existById(id))
-            ResponseEntity.status(200).body(uS.findById(id).map { it.toUserDTO() })
-        else
-            ResponseEntity.notFound().build()
+    fun profileId(@PathVariable id : UUID): ResponseEntity<UserDTO> {
+        return ResponseEntity.status(200).body(uS.findById(id).map { it.toUserDTO() }.orElseThrow { SingleEntityNotFoundException(id.toString(),User::class.java)  })
     }
 
     @PutMapping("/")

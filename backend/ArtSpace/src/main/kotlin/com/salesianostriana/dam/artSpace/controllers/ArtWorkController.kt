@@ -13,20 +13,21 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 import java.util.*
 import javax.validation.Valid
+
 @RestController
 @RequestMapping("/artwork")
 class ArtWorkController(
-    private val imgS: ImageArtWorkService,
-    private val artS: ArtWorkService,
-    private val commS: CommentService
+        private val imgS: ImageArtWorkService,
+        private val artS: ArtWorkService,
+        private val commS: CommentService
 ) {
 
 
     @PostMapping("/")
     fun creatArtWork(
-        @Valid @RequestPart artWorkDTO: ArtWorkNewDTO,
-        @RequestPart file: MultipartFile,
-        @AuthenticationPrincipal user: User
+            @Valid @RequestPart artWorkDTO: ArtWorkNewDTO,
+            @RequestPart file: MultipartFile,
+            @AuthenticationPrincipal user: User
     ): ResponseEntity<ArtWorkNewDTO> {
         var artWork = ArtWork(artWorkDTO.tittle, artWorkDTO.price, artWorkDTO.description, artWorkDTO.material, user)
         artS.save(artWork)
@@ -48,11 +49,8 @@ class ArtWorkController(
 
     @DeleteMapping("/{id}")
     fun deleteArtWork(@PathVariable id: UUID): ResponseEntity<Any> {
-
-
-            var art = artS.findById(id).orElseThrow { ListEntityNotFoundException(ArtWork::class.java) }
-            artS.delete(art)
-            artS.save(art)
+        var art = artS.findById(id).orElseThrow { ListEntityNotFoundException(ArtWork::class.java) }
+        artS.delete(art)
         return ResponseEntity.noContent().build()
     }
 
@@ -64,32 +62,32 @@ class ArtWorkController(
 
     @PutMapping("/{id}")
     fun editArtWork(@PathVariable id: UUID, @Valid @RequestBody artWorkEditDTO: ArtWorkEditDTO): ResponseEntity<Any> {
-            artS.findById(id).map {
-                it.tittle = artWorkEditDTO.tittle
-                it.description = artWorkEditDTO.description
-                it.material = artWorkEditDTO.material
-                it.price = artWorkEditDTO.price
-                artS.save(it)
-            }.orElseThrow {
-                SingleEntityNotFoundException(id.toString(), ArtWork::class.java)
-            }
-            return ResponseEntity.status(204).build()
-    }
-
-        @PostMapping("/{id}/comment")
-        fun addComment(@PathVariable id: UUID, @Valid @RequestBody comment: Comment): ResponseEntity<Any> {
-            return if (artS.existById(id)) {
-                var art = artS.findById(id).get()
-                art.addComment(comment)
-                commS.save(comment)
-                artS.save(art)
-                ResponseEntity.ok().build()
-            } else {
-                ResponseEntity.notFound().build()
-            }
+        artS.findById(id).map {
+            it.tittle = artWorkEditDTO.tittle
+            it.description = artWorkEditDTO.description
+            it.material = artWorkEditDTO.material
+            it.price = artWorkEditDTO.price
+            artS.save(it)
+        }.orElseThrow {
+            SingleEntityNotFoundException(id.toString(), ArtWork::class.java)
         }
-
+        return ResponseEntity.status(204).build()
     }
+
+    @PostMapping("/{id}/comment")
+    fun addComment(@PathVariable id: UUID, @Valid @RequestBody comment: Comment): ResponseEntity<Any> {
+        return if (artS.existById(id)) {
+            var art = artS.findById(id).get()
+            art.addComment(comment)
+            commS.save(comment)
+            artS.save(art)
+            ResponseEntity.ok().build()
+        } else {
+            ResponseEntity.notFound().build()
+        }
+    }
+
+}
 
 
 
