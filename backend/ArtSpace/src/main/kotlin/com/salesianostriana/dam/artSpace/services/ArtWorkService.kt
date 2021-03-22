@@ -16,10 +16,8 @@ class ArtWorkService(
     fun findAll()=artR.findAll()
     fun deleteById(id: UUID)= artR.deleteById(id)
     fun delete(artWork: ArtWork) = artR.delete(artWork)
-
     fun allFollowingArtWorks(id: UUID) = artR.followingArtWorks(id)
-
     fun allNotFollowingArtsWorks(following : MutableList<User>, id: UUID) = artR.notFollowingArtWorks(following, id)
-
+    fun allArtWorkById(cartId : MutableList<UUID>) = artR.getAllById(cartId)
 
 }

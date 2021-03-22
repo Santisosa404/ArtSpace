@@ -6,13 +6,13 @@ import java.util.*
 import javax.persistence.*
 
 @Entity
-class Cart(
+class Buy(
     var finalPrice: Double?=0.0,
 
     //Asociacion con OrderDetails
     @OneToMany(mappedBy = "orderInDetails", cascade = [CascadeType.ALL])
     @LazyCollection(LazyCollectionOption.FALSE)
-    var ordering: MutableList<CartDetails> = mutableListOf(),
+    var ordering: MutableList<BuyDetails> = mutableListOf(),
 
 
     //Asociacion con User
@@ -24,14 +24,14 @@ class Cart(
     /**
      * Metodos auxiliares orderIndetails
      */
-    fun addOrder(cartDetails: CartDetails) {
-        cartDetails.orderInDetails = this
-        this.ordering.add(cartDetails)
+    fun addOrder(buyDetails: BuyDetails) {
+        buyDetails.orderInDetails = this
+        this.ordering.add(buyDetails)
     }
 
-    fun deleteOrder(cartDetails: CartDetails) {
-        cartDetails.orderInDetails = null
-        this.ordering.remove(cartDetails)
+    fun deleteOrder(buyDetails: BuyDetails) {
+        buyDetails.orderInDetails = null
+        this.ordering.remove(buyDetails)
     }
 
     fun setPrecio(){
