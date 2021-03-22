@@ -1,6 +1,7 @@
 package com.salesianostriana.dam.artSpace.services
 
 import com.salesianostriana.dam.artSpace.models.ArtWork
+import com.salesianostriana.dam.artSpace.models.User
 import com.salesianostriana.dam.artSpace.repositories.ArtWorkRepository
 import org.springframework.stereotype.Service
 import java.util.*
@@ -14,6 +15,11 @@ class ArtWorkService(
     fun findById(id: UUID) = artR.findById(id)
     fun findAll()=artR.findAll()
     fun deleteById(id: UUID)= artR.deleteById(id)
+    fun delete(artWork: ArtWork) = artR.delete(artWork)
+
+    fun allFollowingArtWorks(id: UUID) = artR.followingArtWorks(id)
+
+    fun allNotFollowingArtsWorks(following : MutableList<User>, id: UUID) = artR.notFollowingArtWorks(following, id)
 
 
 }

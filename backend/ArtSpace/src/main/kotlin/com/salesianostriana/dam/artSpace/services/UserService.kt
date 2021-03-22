@@ -28,4 +28,5 @@ class UserService(
     fun existById(id : UUID) = uR.existsById(id)
 
     fun save(user: User) = uR.save(user)
+    fun findAll() = uR.findAll()
 }
