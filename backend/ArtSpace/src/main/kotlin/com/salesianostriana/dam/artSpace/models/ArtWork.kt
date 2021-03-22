@@ -29,8 +29,8 @@ class ArtWork(
     var comments: MutableList<Comment> = mutableListOf(),
 
     //Asociacion con OrderDetails
-    @ManyToOne
-    var orderDet: CartDetails? = null,
+    @OneToOne(mappedBy = "artWork")
+    var buyLine: BuyDetails? = null,
 
 
     @Id @GeneratedValue var id: UUID? = null
