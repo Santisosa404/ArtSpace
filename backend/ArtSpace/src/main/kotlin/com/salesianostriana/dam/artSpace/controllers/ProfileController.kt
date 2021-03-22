@@ -1,16 +1,16 @@
 package com.salesianostriana.dam.artSpace.controllers
 
+import com.salesianostriana.dam.artSpace.exceptions.SingleEntityNotFoundException
 import com.salesianostriana.dam.artSpace.models.User
 import com.salesianostriana.dam.artSpace.models.UserDTO
 import com.salesianostriana.dam.artSpace.models.UserEditDTO
 import com.salesianostriana.dam.artSpace.services.UserService
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.crypto.password.PasswordEncoder
-import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
 import java.util.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/profile")
@@ -26,16 +26,12 @@ class ProfileController(
     }
 
     @GetMapping("/{id}")
-    fun profileId(@PathVariable id : UUID): ResponseEntity<Optional<UserDTO>> {
-        return if (uS.existById(id))
-            ResponseEntity.status(200).body(uS.findById(id).map { it.toUserDTO() })
-        else
-            ResponseEntity.notFound().build()
+    fun profileId(@PathVariable id : UUID): ResponseEntity<UserDTO> {
+        return ResponseEntity.status(200).body(uS.findById(id).map { it.toUserDTO() }.orElseThrow { SingleEntityNotFoundException(id.toString(),User::class.java)  })
     }
 
     @PutMapping("/")
-    fun profileEdit(@AuthenticationPrincipal user: User, @RequestBody userEdit :  UserEditDTO) : ResponseEntity<Any> {
-        return if (uS.existById(user.id!!)){
+    fun profileEdit(@AuthenticationPrincipal user: User, @Valid @RequestBody userEdit :  UserEditDTO) : ResponseEntity<Any> {
             uS.findById(user.id!!).map {
                 it.username = userEdit.username
                 it.password = passEnc.encode(userEdit.password)
@@ -45,12 +41,10 @@ class ProfileController(
                 it.location = userEdit.location
                 it.description = userEdit.description
                 uS.save(it)
+            }.orElseThrow{
+                SingleEntityNotFoundException(user.id!!.toString(),User::class.java)
             }
-            //TODO
-            ResponseEntity.status(204).build()
-        }else{
-           ResponseEntity.notFound().build()
-        }
+            return ResponseEntity.status(204).build()
     }
 
     @GetMapping("/all")
