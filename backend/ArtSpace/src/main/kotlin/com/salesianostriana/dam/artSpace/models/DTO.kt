@@ -14,6 +14,7 @@ data class UserDTO(
         var address : String,
         @get:NotBlank(message = "{user.location.notBlank}")
         var location : String,
+        var description: String,
         var artWorks: MutableList<ArtWorkDTO>?,
         var following : MutableList<UserRespDTO>?,
         var id : UUID?

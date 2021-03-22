@@ -22,17 +22,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/textView_prof_pub_username"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
-                    android:text="username"
-                    app:layout_constraintBottom_toTopOf="@+id/imageView_trend_image"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0" />
-
                 <ImageView
                     android:id="@+id/imageView_prof_pub_image"
                     android:layout_width="249dp"

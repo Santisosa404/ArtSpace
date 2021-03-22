@@ -149,6 +149,7 @@ class User(
         this.email,
         this.address,
         this.location,
+        this.description,
         this.artWorks?.map { it.toDTO() } as MutableList<ArtWorkDTO>,
         this.following.map { it.toUserRespDTO() } as MutableList<UserRespDTO>,
         this.id)
