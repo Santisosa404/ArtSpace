@@ -8,6 +8,11 @@
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_plus"/>
     <item
+        android:title="@string/carrito"
+        android:id="@+id/action_cart"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_shopping_cart"/>
+    <item
     android:title="@string/salir"
     android:id="@+id/action_logout"
     app:showAsAction="ifRoom"

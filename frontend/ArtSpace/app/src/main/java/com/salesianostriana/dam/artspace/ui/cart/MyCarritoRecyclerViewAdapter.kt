@@ -1,4 +1,4 @@
-package com.salesianostriana.dam.artspace.ui.profile
+package com.salesianostriana.dam.artspace.ui.cart
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -7,31 +7,34 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.salesianostriana.dam.artspace.R
 
-import com.salesianostriana.dam.artspace.ui.profile.dummy.DummyContent.DummyItem
+import com.salesianostriana.dam.artspace.ui.cart.dummy.DummyContent.DummyItem
 
 /**
  * [RecyclerView.Adapter] that can display a [DummyItem].
  * TODO: Replace the implementation with code for your data type.
  */
-class MyProfileRecyclerViewAdapter(
+class MyCarritoRecyclerViewAdapter(
     private val values: List<DummyItem>
-) : RecyclerView.Adapter<MyProfileRecyclerViewAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<MyCarritoRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.fragment_profile, parent, false)
+            .inflate(R.layout.fragment_carrito, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
+        holder.idView.text = item.id
         holder.contentView.text = item.content
     }
 
     override fun getItemCount(): Int = values.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val contentView: TextView = view.findViewById(R.id.textView_prof_pub_tittle)
+        val idView: TextView = view.findViewById(R.id.textView_cart_artWork_price
+        )
+        val contentView: TextView = view.findViewById(R.id.content)
 
         override fun toString(): String {
             return super.toString() + " '" + contentView.text + "'"

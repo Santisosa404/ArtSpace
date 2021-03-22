@@ -1,4 +1,4 @@
-package com.salesianostriana.dam.artspace.ui.profile
+package com.salesianostriana.dam.artspace.ui.cart
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,12 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.salesianostriana.dam.artspace.R
-import com.salesianostriana.dam.artspace.ui.profile.dummy.DummyContent
+import com.salesianostriana.dam.artspace.ui.cart.dummy.DummyContent
 
 /**
  * A fragment representing a list of Items.
  */
-class ProfileFragment : Fragment() {
+class CarritoFragment : Fragment() {
 
     private var columnCount = 1
 
@@ -30,18 +30,18 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_profile_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_carrito_list, container, false)
 
         // Set the adapter
-        val lista = view.findViewById<RecyclerView>(R.id.list)
-
-            with(lista) {
+        if (view is RecyclerView) {
+            with(view) {
                 layoutManager = when {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyProfileRecyclerViewAdapter(DummyContent.ITEMS)
+                adapter = MyCarritoRecyclerViewAdapter(DummyContent.ITEMS)
             }
+        }
         return view
     }
 
@@ -53,7 +53,7 @@ class ProfileFragment : Fragment() {
         // TODO: Customize parameter initialization
         @JvmStatic
         fun newInstance(columnCount: Int) =
-            ProfileFragment().apply {
+            CarritoFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_COLUMN_COUNT, columnCount)
                 }

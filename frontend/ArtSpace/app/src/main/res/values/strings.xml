@@ -25,4 +25,7 @@
     <string name="yourArtworks">Tus publicaciones</string>
     <string name="profile_description"> Descripcion</string>
     <string name="title_profile">Perfil</string>
+    <string name="carrito">Carrito</string>
+    <string name="cartItems">Titulo ArtWork</string>
+    <string name="cartPrice">Precio</string>
 </resources>
