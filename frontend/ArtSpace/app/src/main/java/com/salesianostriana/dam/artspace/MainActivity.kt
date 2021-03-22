@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
+                R.id.navigation_following, R.id.navigation_trending, R.id.navigation_profile
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
         val sharedPref =
             getSharedPreferences(getString(R.string.preference_file_name), Context.MODE_PRIVATE)
         token = sharedPref.getString("TOKEN", "")!!
-        Toast.makeText(this, "Token: ${token}", Toast.LENGTH_LONG).show()
 
     }
 

@@ -15,4 +15,14 @@
     <string name="editText_reg_password">Password</string>
     <string name="editText_reg_location">Location</string>
     <string name="editText_reg_address">Address</string>
+    <string name="button_tren_follow">Seguir</string>
+    <string name="newArtWork">Nuevo ArtWork</string>
+    <string name="title_trending">Tendencias</string>
+    <string name="title_following">Siguiendo</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="following">Siguiendo</string>
+    <string name="yourArtworks">Tus publicaciones</string>
+    <string name="profile_description"> Descripcion</string>
+    <string name="title_profile">Perfil</string>
 </resources>

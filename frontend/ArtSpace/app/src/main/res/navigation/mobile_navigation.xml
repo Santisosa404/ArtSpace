@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_trending">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.salesianostriana.dam.artspace.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/navigation_following"
+        android:name="com.salesianostriana.dam.artspace.ui.following.followingFragment"
+        android:label="@string/title_following"
+        tools:layout="@layout/fragment_following_list" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.salesianostriana.dam.artspace.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_trending"
+        android:name="com.salesianostriana.dam.artspace.ui.trending.TrendingFragment"
+        android:label="@string/title_trending"
+        tools:layout="@layout/fragment_trending_list" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.salesianostriana.dam.artspace.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_profile"
+        android:name="com.salesianostriana.dam.artspace.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile_list" />
 </navigation>
