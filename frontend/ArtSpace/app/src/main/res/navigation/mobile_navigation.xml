@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_following"
-        android:name="com.salesianostriana.dam.artspace.ui.following.followingFragment"
+        android:name="com.salesianostriana.dam.artspace.ui.following.FollowingFragment"
         android:label="@string/title_following"
         tools:layout="@layout/fragment_following_list" />
 

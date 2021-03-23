@@ -52,7 +52,6 @@ class LoginActivity : AppCompatActivity() {
                         call: Call<LoginResponse>,
                         response: Response<LoginResponse>
                     ) {
-                        Log.i(":::TAG",response.code().toString())
                         if (response.code()==200){
                             val sharedPref = ctx.getSharedPreferences(getString(R.string.preference_file_name), Context.MODE_PRIVATE)
                             token = response.body()?.token!!

@@ -28,4 +28,5 @@
     <string name="carrito">Carrito</string>
     <string name="cartItems">Titulo ArtWork</string>
     <string name="cartPrice">Precio</string>
+    <string name="Euro">€</string>
 </resources>

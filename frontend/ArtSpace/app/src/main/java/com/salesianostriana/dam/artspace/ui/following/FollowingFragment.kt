@@ -14,7 +14,7 @@ import com.salesianostriana.dam.artspace.ui.following.dummy.DummyContent
 /**
  * A fragment representing a list of Items.
  */
-class followingFragment : Fragment() {
+class FollowingFragment : Fragment() {
 
     private var columnCount = 1
 
@@ -53,7 +53,7 @@ class followingFragment : Fragment() {
         // TODO: Customize parameter initialization
         @JvmStatic
         fun newInstance(columnCount: Int) =
-            followingFragment().apply {
+            FollowingFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_COLUMN_COUNT, columnCount)
                 }

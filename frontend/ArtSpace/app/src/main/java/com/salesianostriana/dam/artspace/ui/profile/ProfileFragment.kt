@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.salesianostriana.dam.artspace.R
 import com.salesianostriana.dam.artspace.poko.ArtWorkDTO
 import com.salesianostriana.dam.artspace.poko.ProfileResponse
+import com.salesianostriana.dam.artspace.ui.trending.MyTrendingRecyclerViewAdapter
 
 /**
  * A fragment representing a list of Items.
@@ -38,10 +39,10 @@ class ProfileFragment : Fragment() {
         user = ProfileResponse()
         adapterProfile = MyProfileRecyclerViewAdapter(activity as Context, artWorksList,user)
 
-        with(view as RecyclerView){
-            layoutManager = LinearLayoutManager(context)
-            adapter = adapterProfile
-        }
+        val v = view as RecyclerView
+
+        v.layoutManager = LinearLayoutManager(context)
+        v.adapter = adapterProfile
 
         viewModel.userArtWorks.observe(viewLifecycleOwner, Observer {
             artWorksList = it
