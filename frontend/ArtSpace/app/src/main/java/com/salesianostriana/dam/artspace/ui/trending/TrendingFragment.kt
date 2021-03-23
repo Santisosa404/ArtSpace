@@ -2,6 +2,7 @@ package com.salesianostriana.dam.artspace.ui.trending
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.salesianostriana.dam.artspace.R
 import com.salesianostriana.dam.artspace.poko.ArtWorkDTO
+import kotlin.reflect.typeOf
 
 /**
  * A fragment representing a list of Items.
@@ -40,7 +42,6 @@ class TrendingFragment : Fragment() {
         var token = sharedPref?.getString("TOKEN", "")!!
 
         val v = view as RecyclerView
-
         listAdapter = MyTrendingRecyclerViewAdapter(listTrendig)
         v.layoutManager = LinearLayoutManager(context)
         v.adapter = listAdapter

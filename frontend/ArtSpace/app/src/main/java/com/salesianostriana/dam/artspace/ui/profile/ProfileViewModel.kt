@@ -21,38 +21,38 @@ class ProfileViewModel : ViewModel() {
     lateinit var retrofit: Retrofit
     lateinit var service: ProfileService
 
-    private var _userArtWorks = MutableLiveData<MutableList<ArtWorkDTO>>()
 
-    private lateinit var _user : ProfileResponse
+    private lateinit var _user: ProfileResponse
 
-    val userArtWorks : LiveData<MutableList<ArtWorkDTO>>
-    get() = _userArtWorks
 
-    val user : ProfileResponse
-    get() = _user
+    val user: ProfileResponse
+        get() = _user
 
     init {
-        _userArtWorks.value = mutableListOf()
         retrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         service = retrofit.create(ProfileService::class.java)
-        getMyProfile()
     }
-    private  fun getMyProfile(){
-        service.getMyProfile().enqueue(object : Callback<ProfileResponse>{
-            override fun onResponse(call: Call<ProfileResponse>, response: Response<ProfileResponse>) {
-                if(response.code() == 200){
-                    _userArtWorks.value = response.body()!!.artWorks!!
-                    _user = response.body()!!
-                }
-            }
 
-            override fun onFailure(call: Call<ProfileResponse>, t: Throwable) {
-                Log.i(":::TAG", "He entrado on failure")
-            }
-        })
+    private fun getMyProfile(token: String) {
+        if (token.isNotEmpty()) {
+            service.getMyProfile("Bearer $token").enqueue(object : Callback<ProfileResponse> {
+                override fun onResponse(
+                    call: Call<ProfileResponse>,
+                    response: Response<ProfileResponse>
+                ) {
+                    if (response.code() == 200) {
+                        _user = response.body()!!
+                    }
+                }
+
+                override fun onFailure(call: Call<ProfileResponse>, t: Throwable) {
+                    Log.i(":::TAG", "He entrado on failure profile")
+                }
+            })
+        }
     }
 
 }

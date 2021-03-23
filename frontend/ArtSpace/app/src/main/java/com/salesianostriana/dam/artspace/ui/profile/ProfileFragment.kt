@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.salesianostriana.dam.artspace.R
 import com.salesianostriana.dam.artspace.poko.ArtWorkDTO
 import com.salesianostriana.dam.artspace.poko.ProfileResponse
+import com.salesianostriana.dam.artspace.poko.UserDTO
 import com.salesianostriana.dam.artspace.ui.trending.MyTrendingRecyclerViewAdapter
 
 /**
@@ -21,10 +22,10 @@ import com.salesianostriana.dam.artspace.ui.trending.MyTrendingRecyclerViewAdapt
  */
 class ProfileFragment : Fragment() {
 
-    lateinit var artWorksList : MutableList<ArtWorkDTO>
+    var artWorksList : List<ArtWorkDTO> = listOf()
+    var user : ProfileResponse = ProfileResponse()
     lateinit var adapterProfile : MyProfileRecyclerViewAdapter
     lateinit var viewModel : ProfileViewModel
-    lateinit var user : ProfileResponse
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -35,19 +36,18 @@ class ProfileFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_profile_list, container, false)
         viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
-        artWorksList= mutableListOf()
 
-        adapterProfile = MyProfileRecyclerViewAdapter(activity as Context, artWorksList,user)
+        val sharedPref =activity?.getSharedPreferences(getString(R.string.preference_file_name), Context.MODE_PRIVATE)
+        var token = sharedPref?.getString("TOKEN", "")!!
 
+        //No lo puede castear TODO
         val v = view as RecyclerView
+
+        adapterProfile = MyProfileRecyclerViewAdapter(user)
 
         v.layoutManager = LinearLayoutManager(context)
         v.adapter = adapterProfile
 
-        viewModel.userArtWorks.observe(viewLifecycleOwner, Observer {
-            artWorksList = it
-            adapterProfile.setData(artWorksList,user)
-        })
 
 
 

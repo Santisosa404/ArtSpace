@@ -30,4 +30,9 @@
     <string name="cartPrice">Precio</string>
     <string name="Euro">€</string>
     <string name="Follow">Seguir</string>
+    <string name="NombreArtWorkEnCarrito">Nombre del artWork</string>
+    <string name="PrecioDelArtWorkEnCarrito">Precio</string>
+    <string name="TextView_cart_total">Total</string>
+    <string name="textView_cart_total_precio" >Precio</string>
+    <string name="button_cart_pagar">Efectuar Pago</string>
 </resources>
