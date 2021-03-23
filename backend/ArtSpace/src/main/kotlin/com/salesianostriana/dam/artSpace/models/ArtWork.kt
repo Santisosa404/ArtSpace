@@ -81,18 +81,19 @@ class ArtWork(
         this.id)
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as ArtWork
-
-        if (id != other.id) return false
-
-        return true
+        if (this === other)
+            return true
+        if (other === null || other !is ArtWork)
+            return false
+        if (this::class != other::class)
+            return false
+        return id == other.id
     }
 
     override fun hashCode(): Int {
-        return id?.hashCode() ?: 0
+        if (id == null)
+            return super.hashCode()
+        return id.hashCode()
     }
 
 

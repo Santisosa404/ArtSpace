@@ -50,7 +50,7 @@ class ArtWorkController(
     @DeleteMapping("/{id}")
     fun deleteArtWork(@PathVariable id: UUID): ResponseEntity<Any> {
         var art = artS.findById(id).orElseThrow { ListEntityNotFoundException(ArtWork::class.java) }
-        artS.delete(art)
+        artS.deleteById(id)
         return ResponseEntity.noContent().build()
     }
 

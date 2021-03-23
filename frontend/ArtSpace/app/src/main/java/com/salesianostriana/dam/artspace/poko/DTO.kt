@@ -87,7 +87,7 @@ data class ArtWorkCartDTO(
 )
 
 data class ImageArtWorkDTO(
-    var img: ImgurImageAttribute?,
+    var img: String?,
     var id: UUID?
 )
 
