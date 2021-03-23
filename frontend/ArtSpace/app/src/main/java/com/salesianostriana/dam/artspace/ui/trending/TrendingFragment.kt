@@ -46,6 +46,7 @@ class TrendingFragment : Fragment() {
         v.adapter = listAdapter
 
         viewModel.getTrending(token)
+
         viewModel.trendig.observe(viewLifecycleOwner, Observer {
             listTrendig = it
             listAdapter.setData(it)

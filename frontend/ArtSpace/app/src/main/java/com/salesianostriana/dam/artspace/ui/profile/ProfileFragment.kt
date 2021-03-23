@@ -36,7 +36,7 @@ class ProfileFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_profile_list, container, false)
         viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
         artWorksList= mutableListOf()
-        user = ProfileResponse()
+
         adapterProfile = MyProfileRecyclerViewAdapter(activity as Context, artWorksList,user)
 
         val v = view as RecyclerView

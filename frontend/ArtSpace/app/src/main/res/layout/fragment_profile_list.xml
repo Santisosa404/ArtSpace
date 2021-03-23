@@ -76,10 +76,11 @@
         android:layout_marginTop="8dp"
         app:layoutManager="LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_prof_artWork"
         app:layout_constraintVertical_bias="0.0"
         tools:context=".ui.profile.ProfileFragment"
-        tools:layout_editor_absoluteX="0dp"
         tools:listitem="@layout/fragment_profile" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

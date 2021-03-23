@@ -76,7 +76,10 @@ class TrendigListViewModel : ViewModel() {
             override fun onFailure(call: Call<List<ArtWorkDTO>>, t: Throwable) {
                 Log.i(":::TAG","On failure trending")
             }
+
+
         })
+
     }
 
 
