@@ -125,6 +125,5 @@ data class  CommentDTO(
 
 data class CartDTO(
     var orders : MutableList<ArtWorkCartDTO>,
-    var finalPrice : Double,
-    var id: UUID?=null
+    var finalPrice : Double
 )

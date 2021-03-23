@@ -21,6 +21,10 @@ class User(
 
     @ElementCollection(fetch = FetchType.EAGER)
     val roles: MutableSet<String> = HashSet(),
+
+    @ElementCollection
+    @LazyCollection(LazyCollectionOption.FALSE)
+    var actualCart : MutableList<UUID>? = mutableListOf(),
     //Asociacion con ArtWork composicion
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -46,10 +50,10 @@ class User(
     var followers: MutableList<User> = mutableListOf(),
 
 
-    //Asociacion con Cart
+    //Asociacion con Buy
     @OneToMany(mappedBy = "userOrder")
     @LazyCollection(LazyCollectionOption.FALSE)
-    var carts: MutableList<Cart> = mutableListOf(),
+    var buys: MutableList<Buy> = mutableListOf(),
 
 
     private val nonExpired: Boolean = true,
@@ -116,14 +120,14 @@ class User(
     /**
      * Metodos auxiliares carrito
      */
-    fun addCart(cart: Cart) {
-        cart.userOrder = this
-        this.carts.add(cart)
+    fun addCart(buy: Buy) {
+        buy.userOrder = this
+        this.buys.add(buy)
     }
 
-    fun deleteCart(cart: Cart) {
-        cart.userOrder = null
-        this.carts.remove(cart)
+    fun deleteCart(buy: Buy) {
+        buy.userOrder = null
+        this.buys.remove(buy)
     }
 
 
@@ -168,6 +172,8 @@ class User(
     override fun hashCode(): Int {
         return id?.hashCode() ?: 0
     }
+
+
 
 
 }
