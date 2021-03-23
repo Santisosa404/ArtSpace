@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import coil.load
 import com.salesianostriana.dam.artspace.R
 import com.salesianostriana.dam.artspace.poko.ArtWorkDTO
 
@@ -27,10 +28,12 @@ class MyfollowingRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
+        val id = item.images!!.last().img
         holder.usernameView.text = item.username
         holder.descriptionView.text = item.description
         holder.priceView.text = item.price.toString()
         holder.tittleView.text = item.tittle
+        holder.imageView.load("https://imgur.com/${id}.png")
 
     }
 

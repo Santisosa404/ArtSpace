@@ -1,6 +1,7 @@
 package com.salesianostriana.dam.artspace.ui.trending
 
 import android.media.Image
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -29,11 +30,13 @@ class MyTrendingRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        val id = item.id
+        val id = item.images!!.last().img
         holder.usernameView.text = item.username
         holder.descriptionView.text = item.description
         holder.priceView.text = item.price.toString()
         holder.tittleView.text = item.tittle
+        holder.imageView.load("https://imgur.com/${id}.png")
+
 //        holder.imageView.load()
     }
 
