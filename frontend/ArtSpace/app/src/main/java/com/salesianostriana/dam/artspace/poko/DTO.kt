@@ -5,6 +5,7 @@ import java.util.*
 
 data class UserDTO(
     var username: String,
+    var fullname : String,
     var email: String,
     var address: String,
     var location: String,
@@ -45,7 +46,6 @@ data class UserEditDTO(
     var username: String,
     var fullname: String,
     var email: String,
-    var password: String,
     var address: String,
     var location: String,
     var description: String

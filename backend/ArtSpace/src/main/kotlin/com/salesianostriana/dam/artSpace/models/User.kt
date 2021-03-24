@@ -150,6 +150,7 @@ class User(
 
     fun toUserDTO() = UserDTO(
         this.username,
+        this.fullname,
         this.email,
         this.address,
         this.location,

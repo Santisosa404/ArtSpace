@@ -8,6 +8,8 @@ import javax.validation.constraints.*
 data class UserDTO(
         @get:NotBlank(message = "{user.username.notBlank}")
         var username : String,
+        @get:NotBlank(message = "{user.fullname.notBlank}")
+        var fullname : String,
         @get:Email(message = "{user.email.notEmail}")
         var email : String,
         @get:NotBlank(message = "{user.address.notBlank}")
@@ -59,7 +61,6 @@ data class UserEditDTO(
     var fullname : String,
     @get:Email(message = "{user.email.notEmail}")
     var email: String,
-    var password : String,
     @get:NotBlank(message = "{user.address.notBlank}")
     var address: String,
     @get:NotBlank(message = "{user.location.notBlank}")

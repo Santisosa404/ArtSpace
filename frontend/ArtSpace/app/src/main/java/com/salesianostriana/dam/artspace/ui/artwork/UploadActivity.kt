@@ -35,5 +35,6 @@ class UploadActivity : AppCompatActivity() {
 
     private fun init(){
 
+
     }
 }

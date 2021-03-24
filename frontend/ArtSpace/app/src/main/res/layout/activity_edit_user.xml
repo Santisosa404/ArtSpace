@@ -6,4 +6,87 @@
     android:layout_height="match_parent"
     tools:context=".ui.artwork.EditUserActivity">
 
+    <EditText
+        android:id="@+id/editText_edit_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="80dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/nombreDeUsuario"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editText_edit_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:text="@string/Descripcion_artwork"
+        app:layout_constraintEnd_toEndOf="@+id/editText_edit_email"
+        app:layout_constraintStart_toStartOf="@+id/editText_edit_email"
+        app:layout_constraintTop_toBottomOf="@+id/editText_edit_email" />
+
+    <EditText
+        android:id="@+id/editText_edit_fullname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/nombreCompleto"
+        app:layout_constraintEnd_toEndOf="@+id/editText_edit_username"
+        app:layout_constraintStart_toStartOf="@+id/editText_edit_username"
+        app:layout_constraintTop_toBottomOf="@+id/editText_edit_username" />
+
+    <EditText
+        android:id="@+id/editText_edit_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:text="@string/EmailEdit"
+        app:layout_constraintEnd_toEndOf="@+id/editText_edit_localidad"
+        app:layout_constraintStart_toStartOf="@+id/editText_edit_localidad"
+        app:layout_constraintTop_toBottomOf="@+id/editText_edit_localidad" />
+
+    <EditText
+        android:id="@+id/editText_edit_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/Direccion"
+        app:layout_constraintEnd_toEndOf="@+id/editText_edit_fullname"
+        app:layout_constraintStart_toStartOf="@+id/editText_edit_fullname"
+        app:layout_constraintTop_toBottomOf="@+id/editText_edit_fullname" />
+
+    <EditText
+        android:id="@+id/editText_edit_localidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/Localidad"
+        app:layout_constraintEnd_toEndOf="@+id/editText_edit_address"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/editText_edit_address"
+        app:layout_constraintTop_toBottomOf="@+id/editText_edit_address" />
+
+    <Button
+        android:id="@+id/button_edit_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="504dp"
+        android:text="@string/Editar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
