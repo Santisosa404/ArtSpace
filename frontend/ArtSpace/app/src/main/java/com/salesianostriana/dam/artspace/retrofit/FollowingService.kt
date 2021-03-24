@@ -10,5 +10,4 @@ interface FollowingService {
     @GET("/following/")
     fun getFollowing(@Header("Authorization") token : String) : Call<List<ArtWorkDTO>>
 
-
 }

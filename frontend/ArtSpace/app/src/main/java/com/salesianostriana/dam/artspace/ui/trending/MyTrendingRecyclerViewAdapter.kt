@@ -19,7 +19,8 @@ import com.salesianostriana.dam.artspace.poko.ArtWorkDTO
  * TODO: Replace the implementation with code for your data type.
  */
 class MyTrendingRecyclerViewAdapter(
-    private var values: List<ArtWorkDTO>
+    private var values: List<ArtWorkDTO>,
+    private var viewModel: TrendigListViewModel
 ) : RecyclerView.Adapter<MyTrendingRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,14 +32,19 @@ class MyTrendingRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
+        val idUser = item.username
         val id = item.images!!.last().img
         holder.usernameView.text = item.username
         holder.descriptionView.text = item.description
         holder.priceView.text = item.price.toString()
         holder.tittleView.text = item.tittle
         holder.imageView.load("https://imgur.com/${id}.png")
+//        holder.followView.setOnClickListener (View.OnClickListener {
+//            viewModel.doFollow(token,) TODO reformar el DTO para pasar la id
+//        })
 
-//        holder.imageView.load()
+
+
     }
 
 
@@ -48,6 +54,8 @@ class MyTrendingRecyclerViewAdapter(
         val priceView : TextView = view.findViewById(R.id.textView_trend_price)
         val tittleView : TextView = view.findViewById(R.id.textView_trend_tittle)
         val imageView : ImageView = view.findViewById(R.id.imageView_trend_image)
+        val followView : TextView = view.findViewById(R.id.textView_trend_follow)
+
     }
 
     fun setData(newTrending: List<ArtWorkDTO>){

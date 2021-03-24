@@ -24,15 +24,18 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.salesianostriana.dam.artspace.retrofit.ArtWorkService
+import com.salesianostriana.dam.artspace.retrofit.FollowService
 import com.salesianostriana.dam.artspace.ui.login.LoginActivity
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 
 class TrendigListViewModel : ViewModel() {
     private val _trending = MutableLiveData<List<ArtWorkDTO>>()
     private val baseUrl = "http://10.0.2.2:4141"
-    private lateinit var service: TrendingService
-    private lateinit var artWorkService : ArtWorkService
+    private var service: TrendingService
+    private var artWorkService: ArtWorkService
+    private var followService : FollowService
 
     val trendig: LiveData<List<ArtWorkDTO>>
         get() = _trending
@@ -43,44 +46,46 @@ class TrendigListViewModel : ViewModel() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         service = retrofit.create(TrendingService::class.java)
-        artWorkService = retrofit.create(ArtWorkService ::class.java)
+        artWorkService = retrofit.create(ArtWorkService::class.java)
+        followService = retrofit.create(FollowService ::class.java)
     }
-    fun getTrending(token:String) {
-        if(token.isEmpty()){
-            artWorkService.getAll().enqueue(object : Callback<List<ArtWorkDTO>>{
+
+    fun getTrending(token: String) {
+        if (token.isEmpty()) {
+            artWorkService.getAll().enqueue(object : Callback<List<ArtWorkDTO>> {
                 override fun onResponse(
                     call: Call<List<ArtWorkDTO>>,
                     response: Response<List<ArtWorkDTO>>
                 ) {
-                    if(response.code() == 200){
+                    if (response.code() == 200) {
                         _trending.value = response.body()
                     }
                 }
 
                 override fun onFailure(call: Call<List<ArtWorkDTO>>, t: Throwable) {
-                    Log.i(":::TAG","Failure en get all")
+                    Log.i(":::TAG", "Failure en get all")
+                }
+            })
+        } else {
+            service.getTrending("Bearer $token").enqueue(object : Callback<List<ArtWorkDTO>> {
+
+                override fun onResponse(
+                    call: Call<List<ArtWorkDTO>>,
+                    response: Response<List<ArtWorkDTO>>
+                ) {
+                    if (response.code() == 200) {
+                        _trending.value = response.body()
+                    }
+                }
+                override fun onFailure(call: Call<List<ArtWorkDTO>>, t: Throwable) {
+                    Log.i(":::TAG", "On failure trending")
                 }
             })
         }
-        service.getTrending("Bearer $token").enqueue(object : Callback<List<ArtWorkDTO>> {
-
-            override fun onResponse(
-                call: Call<List<ArtWorkDTO>>,
-                response: Response<List<ArtWorkDTO>>
-            ) {
-               if(response.code() == 200){
-                   _trending.value = response.body()
-               }
-            }
-
-            override fun onFailure(call: Call<List<ArtWorkDTO>>, t: Throwable) {
-                Log.i(":::TAG","On failure trending")
-            }
-
-
-        })
-
     }
 
+    fun doFollow(token: String, id : UUID){
+        followService.followUser(token, id)
+    }
 
 }

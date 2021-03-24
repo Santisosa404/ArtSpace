@@ -18,15 +18,18 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ProfileViewModel : ViewModel() {
     val baseUrl = "http://10.0.2.2:4141"
-    lateinit var retrofit: Retrofit
-    lateinit var service: ProfileService
-
+    var retrofit: Retrofit
+    var service: ProfileService
+    private val _artWorks = MutableLiveData<List<ArtWorkDTO>>()
 
     private lateinit var _user: ProfileResponse
 
 
     val user: ProfileResponse
         get() = _user
+
+    val artWorks : LiveData<List<ArtWorkDTO>>
+    get() = _artWorks
 
     init {
         retrofit = Retrofit.Builder()
@@ -36,7 +39,8 @@ class ProfileViewModel : ViewModel() {
         service = retrofit.create(ProfileService::class.java)
     }
 
-    private fun getMyProfile(token: String) {
+    fun getMyProfile(token: String) {
+
         if (token.isNotEmpty()) {
             service.getMyProfile("Bearer $token").enqueue(object : Callback<ProfileResponse> {
                 override fun onResponse(
@@ -45,6 +49,7 @@ class ProfileViewModel : ViewModel() {
                 ) {
                     if (response.code() == 200) {
                         _user = response.body()!!
+                        _artWorks.value = user.artWorks!!
                     }
                 }
 

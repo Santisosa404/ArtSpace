@@ -42,7 +42,7 @@ class TrendingFragment : Fragment() {
         var token = sharedPref?.getString("TOKEN", "")!!
 
         val v = view as RecyclerView
-        listAdapter = MyTrendingRecyclerViewAdapter(listTrendig)
+        listAdapter = MyTrendingRecyclerViewAdapter(listTrendig, viewModel)
         v.layoutManager = LinearLayoutManager(context)
         v.adapter = listAdapter
 

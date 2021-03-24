@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.salesianostriana.dam.artspace.R
@@ -40,16 +41,25 @@ class ProfileFragment : Fragment() {
         val sharedPref =activity?.getSharedPreferences(getString(R.string.preference_file_name), Context.MODE_PRIVATE)
         var token = sharedPref?.getString("TOKEN", "")!!
 
-        //No lo puede castear TODO
-        val v = view as RecyclerView
+        val v = view.findViewById<RecyclerView>(R.id.list)
+        val userName = view.findViewById<TextView>(R.id.textView_prof_username)
+        val profDescription : TextView = view.findViewById(R.id.textView_prof_description)
+        val profNumFoll : TextView = view.findViewById(R.id.textView_prof_following_count)
 
-        adapterProfile = MyProfileRecyclerViewAdapter(user)
+        adapterProfile = MyProfileRecyclerViewAdapter(artWorksList)
 
         v.layoutManager = LinearLayoutManager(context)
         v.adapter = adapterProfile
-
-
-
+        viewModel.getMyProfile(token)
+        viewModel.artWorks.observe(viewLifecycleOwner, Observer {
+            artWorksList = it
+            adapterProfile.setData(it)
+        })
+//        viewModel.user.observe(viewLifecycleOwner, Observer {
+//            userName.text = user.username
+//            profDescription.text = user.description
+//            profNumFoll.text = user.following!!.size.toString()
+//        })
 
         return view
     }
