@@ -42,9 +42,9 @@ class ProfileFragment : Fragment() {
         var token = sharedPref?.getString("TOKEN", "")!!
 
         val v = view.findViewById<RecyclerView>(R.id.list)
-        val userName = view.findViewById<TextView>(R.id.textView_prof_username)
-        val profDescription : TextView = view.findViewById(R.id.textView_prof_description)
-        val profNumFoll : TextView = view.findViewById(R.id.textView_prof_following_count)
+//        val userName = view.findViewById<TextView>(R.id.textView_prof_username)
+//        val profDescription : TextView = view.findViewById(R.id.textView_prof_description)
+//        val profNumFoll : TextView = view.findViewById(R.id.textView_prof_following_count)
 
         adapterProfile = MyProfileRecyclerViewAdapter(artWorksList)
 

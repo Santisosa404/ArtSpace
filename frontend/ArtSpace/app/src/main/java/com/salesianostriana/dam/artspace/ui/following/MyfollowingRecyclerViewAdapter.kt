@@ -1,22 +1,24 @@
 package com.salesianostriana.dam.artspace.ui.following
 
+import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import coil.load
 import com.salesianostriana.dam.artspace.R
 import com.salesianostriana.dam.artspace.poko.ArtWorkDTO
+import com.salesianostriana.dam.artspace.poko.ArtWorkListDTO
 
 
-/**
- * [RecyclerView.Adapter] that can display a [DummyItem].
- * TODO: Replace the implementation with code for your data type.
- */
 class MyfollowingRecyclerViewAdapter(
-    private var values: List<ArtWorkDTO>
+    private var context : Context,
+    private var values: List<ArtWorkListDTO>,
+    private var viewModel: FollowingListViewModel
 ) : RecyclerView.Adapter<MyfollowingRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,14 +31,38 @@ class MyfollowingRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
         val id = item.images!!.last().img
-        holder.usernameView.text = item.username
+        holder.usernameView.text = item.userName
         holder.descriptionView.text = item.description
         holder.priceView.text = item.price.toString()
         holder.tittleView.text = item.tittle
         holder.imageView.load("https://imgur.com/${id}.png")
+        if(item.meGustaUsuario){
+            holder.likeView.setImageResource(R.drawable.ic_heart_full)
+        }else{
+            holder.likeView.setImageResource(R.drawable.ic_heart_empty)
+        }
+        holder.likeView.setOnClickListener {
+           //Todo preguntar
+            if (item.meGustaUsuario) {
+                viewModel.disLike(getToken(), item.id!!)
+                holder.likeView.setImageResource(R.drawable.ic_heart_empty)
+                item.meGustaUsuario = false
+            } else {
+                viewModel.like(getToken(), item.id!!)
+                holder.likeView.setImageResource(R.drawable.ic_heart_full)
+                item.meGustaUsuario = true
+            }
+        }
+        holder.unFollowView.setOnClickListener{
+            viewModel.unFollow(getToken(),item.userId!!)
+        }
 
     }
 
+    fun getToken() : String {
+        val sharedPref =context.getSharedPreferences(context.getString(R.string.preference_file_name), Context.MODE_PRIVATE)
+       return sharedPref?.getString("TOKEN", "")!!
+    }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val usernameView: TextView = view.findViewById(R.id.textView_foll_username)
@@ -44,9 +70,11 @@ class MyfollowingRecyclerViewAdapter(
         val priceView : TextView = view.findViewById(R.id.textView_foll_price)
         val tittleView : TextView = view.findViewById(R.id.textView_foll_tittle)
         val imageView : ImageView = view.findViewById(R.id.imageView_foll_image)
+        val likeView : ImageView = view.findViewById(R.id.imageView_foll_likeEmpty)
+        val unFollowView : TextView = view.findViewById(R.id.textView_foll_unfollow)
     }
 
-    fun setData(newFollowing: List<ArtWorkDTO>){
+    fun setData(newFollowing: List<ArtWorkListDTO>){
         values = newFollowing
         notifyDataSetChanged()
     }

@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.artspace.ui.trending
 
+import android.content.Context
 import android.media.Image
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,7 @@ import com.salesianostriana.dam.artspace.poko.ArtWorkDTO
  * TODO: Replace the implementation with code for your data type.
  */
 class MyTrendingRecyclerViewAdapter(
+    private var context : Context,
     private var values: List<ArtWorkDTO>,
     private var viewModel: TrendigListViewModel
 ) : RecyclerView.Adapter<MyTrendingRecyclerViewAdapter.ViewHolder>() {
@@ -32,22 +34,25 @@ class MyTrendingRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        val idUser = item.username
+        val idUser = item.userId
         val id = item.images!!.last().img
         holder.usernameView.text = item.username
         holder.descriptionView.text = item.description
         holder.priceView.text = item.price.toString()
         holder.tittleView.text = item.tittle
         holder.imageView.load("https://imgur.com/${id}.png")
-//        holder.followView.setOnClickListener (View.OnClickListener {
-//            viewModel.doFollow(token,) TODO reformar el DTO para pasar la id
-//        })
+        holder.followView.setOnClickListener (View.OnClickListener {
+            viewModel.doFollow(getToken(),idUser!!)
+//            TODO reformar el DTO para pasar la id
+        })
 
 
 
     }
-
-
+    fun getToken() : String {
+        val sharedPref =context.getSharedPreferences(context.getString(R.string.preference_file_name), Context.MODE_PRIVATE)
+        return sharedPref?.getString("TOKEN", "")!!
+    }
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val usernameView: TextView = view.findViewById(R.id.textView_trend_username)
         val descriptionView : TextView = view.findViewById(R.id.textView_trend_description)

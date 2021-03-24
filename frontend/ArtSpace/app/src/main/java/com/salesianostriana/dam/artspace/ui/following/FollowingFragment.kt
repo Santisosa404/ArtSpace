@@ -13,12 +13,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.salesianostriana.dam.artspace.R
 import com.salesianostriana.dam.artspace.poko.ArtWorkDTO
+import com.salesianostriana.dam.artspace.poko.ArtWorkListDTO
 
 /**
  * A fragment representing a list of Items.
  */
 class FollowingFragment : Fragment() {
-    var listFollowing : List<ArtWorkDTO> = listOf()
+    var listFollowing : List<ArtWorkListDTO> = listOf()
     lateinit var listAdapter : MyfollowingRecyclerViewAdapter
     lateinit var viewModel: FollowingListViewModel
 
@@ -39,10 +40,12 @@ class FollowingFragment : Fragment() {
 
         val v = view as RecyclerView
 
-        listAdapter = MyfollowingRecyclerViewAdapter(listFollowing)
+        listAdapter = MyfollowingRecyclerViewAdapter(activity as Context,listFollowing,viewModel)
         v.layoutManager = LinearLayoutManager(context)
         v.adapter = listAdapter
         viewModel.getFollowing(token)
+
+
         viewModel.following.observe(viewLifecycleOwner, Observer {
             listFollowing = it
             listAdapter.setData(it)

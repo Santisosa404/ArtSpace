@@ -31,7 +31,7 @@ class FollowController(
             user.deleteFollower(userToFollow)
             uS.save(user)
             uS.save(userToFollow)
-          return  ResponseEntity.noContent().build()
+          return  ResponseEntity.ok().build()
     }
 
 

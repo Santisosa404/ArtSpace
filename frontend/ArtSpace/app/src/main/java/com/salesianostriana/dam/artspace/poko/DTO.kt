@@ -66,14 +66,15 @@ data class ArtWorkEditDTO(
 )
 
 data class ArtWorkDTO(
-    var tittle: String,
-    var price: Double,
+    var tittle : String,
+    var price : Double,
     var description: String,
-    var material: String,
-    var images: MutableList<ImageArtWorkDTO>?,
-    var likes: MutableList<UserRespDTO>,
-    var comments: MutableList<CommentDTO>,
-    var username: String,
+    var material : String,
+    var images : MutableList<ImageArtWorkDTO>?,
+    var likes : MutableList<UserRespDTO>,
+    var comments : MutableList<CommentDTO>,
+    var username : String? = null,
+    var userId : UUID? = null,
     var id: UUID?
 )
 
@@ -83,6 +84,19 @@ data class ArtWorkCartDTO(
     var description: String,
     var material: String,
     var images: MutableList<ImageArtWorkDTO>? = mutableListOf(),
+    var id: UUID?
+)
+data class ArtWorkListDTO(
+    var tittle : String,
+    var price : Double,
+    var description: String,
+    var material : String,
+    var images : MutableList<ImageArtWorkDTO>?,
+    var likes : MutableList<UserRespDTO>,
+    var comments : MutableList<CommentDTO>,
+    var userName : String? = null,
+    var userId : UUID?=null,
+    var meGustaUsuario:Boolean,
     var id: UUID?
 )
 

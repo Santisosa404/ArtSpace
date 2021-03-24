@@ -35,7 +35,7 @@ class TrendigListViewModel : ViewModel() {
     private val baseUrl = "http://10.0.2.2:4141"
     private var service: TrendingService
     private var artWorkService: ArtWorkService
-    private var followService : FollowService
+    private var followService: FollowService
 
     val trendig: LiveData<List<ArtWorkDTO>>
         get() = _trending
@@ -47,7 +47,7 @@ class TrendigListViewModel : ViewModel() {
             .build()
         service = retrofit.create(TrendingService::class.java)
         artWorkService = retrofit.create(ArtWorkService::class.java)
-        followService = retrofit.create(FollowService ::class.java)
+        followService = retrofit.create(FollowService::class.java)
     }
 
     fun getTrending(token: String) {
@@ -77,6 +77,7 @@ class TrendigListViewModel : ViewModel() {
                         _trending.value = response.body()
                     }
                 }
+
                 override fun onFailure(call: Call<List<ArtWorkDTO>>, t: Throwable) {
                     Log.i(":::TAG", "On failure trending")
                 }
@@ -84,8 +85,20 @@ class TrendigListViewModel : ViewModel() {
         }
     }
 
-    fun doFollow(token: String, id : UUID){
-        followService.followUser(token, id)
+    fun doFollow(token: String, id: UUID) {
+        if (token.isEmpty()) {
+            Log.i(":::TAG", "Token vacio")
+        } else {
+            followService.followUser("Bearer $token", id).enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.code() == 200) {
+                    }
+                }
+
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                }
+            })
+        }
     }
 
 }

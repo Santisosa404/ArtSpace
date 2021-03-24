@@ -98,9 +98,26 @@ data class ArtWorkDTO(
     var images : MutableList<ImageArtWorkDTO>?,
     var likes : MutableList<UserRespDTO>,
     var comments : MutableList<CommentDTO>,
-    var userName : String? = null,
+    var userName : String?,
+    var userId : UUID?=null,
     var id: UUID?
     )
+data class ArtWorkListDTO(
+        @get:NotBlank(message = "{artWork.tittle.notBlank}")
+        var tittle : String,
+        @Min(value = 1)
+        var price : Double,
+        var description: String,
+        @get:NotBlank(message = "{artWork.material.notBlank}")
+        var material : String,
+        var images : MutableList<ImageArtWorkDTO>?,
+        var likes : MutableList<UserRespDTO>,
+        var comments : MutableList<CommentDTO>,
+        var userName : String? = null,
+        var userId : UUID?=null,
+        var meGustaUsuario:Boolean,
+        var id: UUID?
+)
 data class ArtWorkCartDTO(
     @get:NotBlank(message = "{artWork.tittle.notBlank}")
     var tittle : String,
