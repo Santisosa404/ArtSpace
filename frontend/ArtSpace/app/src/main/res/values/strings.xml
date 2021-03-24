@@ -33,8 +33,17 @@
     <string name="NombreArtWorkEnCarrito">Nombre del artWork</string>
     <string name="PrecioDelArtWorkEnCarrito">Precio</string>
     <string name="TextView_cart_total">Total</string>
-    <string name="textView_cart_total_precio" >Precio</string>
+    <string name="textView_cart_total_precio">Precio</string>
     <string name="button_cart_pagar">Efectuar Pago</string>
     <string name="username">Username</string>
     <string name="unfollow">Dejar de seguir</string>
+    <string name="title_activity_artwork_details__scrolling">ScrollingActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="Titulo_artwork">Título</string>
+    <string name="Material_artwork">Material</string>
+    <string name="Precio_artwork">Precio</string>
+    <string name="Descripcion_artwork">Descripcion</string>
+    <string name="Imagen_upload">Seleccionar Imagen</string>
+    <string name="Subir_artwork" >Subir publicacion</string>
 </resources>

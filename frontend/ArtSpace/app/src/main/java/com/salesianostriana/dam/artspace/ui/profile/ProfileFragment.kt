@@ -24,7 +24,7 @@ import com.salesianostriana.dam.artspace.ui.trending.MyTrendingRecyclerViewAdapt
 class ProfileFragment : Fragment() {
 
     var artWorksList : List<ArtWorkDTO> = listOf()
-    var user : ProfileResponse = ProfileResponse()
+    lateinit var user : ProfileResponse
     lateinit var adapterProfile : MyProfileRecyclerViewAdapter
     lateinit var viewModel : ProfileViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,25 +41,29 @@ class ProfileFragment : Fragment() {
         val sharedPref =activity?.getSharedPreferences(getString(R.string.preference_file_name), Context.MODE_PRIVATE)
         var token = sharedPref?.getString("TOKEN", "")!!
 
+        //Aquí deberia cargar en el xml los nombres de las variables pero los tengo que llenar?¿
         val v = view.findViewById<RecyclerView>(R.id.list)
-//        val userName = view.findViewById<TextView>(R.id.textView_prof_username)
-//        val profDescription : TextView = view.findViewById(R.id.textView_prof_description)
-//        val profNumFoll : TextView = view.findViewById(R.id.textView_prof_following_count)
+        val userName = view.findViewById<TextView>(R.id.textView_prof_username)
+        val profDescription : TextView = view.findViewById(R.id.textView_prof_description)
+        val profNumFoll : TextView = view.findViewById(R.id.textView_prof_following_count)
 
         adapterProfile = MyProfileRecyclerViewAdapter(artWorksList)
 
         v.layoutManager = LinearLayoutManager(context)
         v.adapter = adapterProfile
+
         viewModel.getMyProfile(token)
+
         viewModel.artWorks.observe(viewLifecycleOwner, Observer {
             artWorksList = it
             adapterProfile.setData(it)
         })
-//        viewModel.user.observe(viewLifecycleOwner, Observer {
-//            userName.text = user.username
-//            profDescription.text = user.description
-//            profNumFoll.text = user.following!!.size.toString()
-//        })
+        viewModel.user.observe(viewLifecycleOwner, Observer {
+            user = it
+            userName.text = user.username
+            profDescription.text = user.description
+            profNumFoll.text = user.following!!.size.toString()
+        })
 
         return view
     }

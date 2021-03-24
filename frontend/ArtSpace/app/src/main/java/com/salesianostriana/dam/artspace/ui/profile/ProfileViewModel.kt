@@ -22,10 +22,10 @@ class ProfileViewModel : ViewModel() {
     var service: ProfileService
     private val _artWorks = MutableLiveData<List<ArtWorkDTO>>()
 
-    private lateinit var _user: ProfileResponse
+    private  var _user = MutableLiveData<ProfileResponse>()
 
 
-    val user: ProfileResponse
+    val user: LiveData<ProfileResponse>
         get() = _user
 
     val artWorks : LiveData<List<ArtWorkDTO>>
@@ -48,8 +48,8 @@ class ProfileViewModel : ViewModel() {
                     response: Response<ProfileResponse>
                 ) {
                     if (response.code() == 200) {
-                        _user = response.body()!!
-                        _artWorks.value = user.artWorks!!
+                        _user.value = response.body()
+                        _artWorks.value = user.value?.artWorks!!
                     }
                 }
 

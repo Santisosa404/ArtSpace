@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -50,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         if (token.isEmpty()) {
             actionLogout.icon = getDrawable(R.drawable.ic_profile_user)
         }
+
 
         return true
 
