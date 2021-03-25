@@ -75,7 +75,7 @@ class DetallesFragment : Fragment() {
             artworkImage.load("https://imgur.com/${id_image}.png")
             artworkBoton.setOnClickListener {
                 viewModel.postComment(token,id, CommentBodyDTO(artworkPlainText.text.toString()))
-            Log.i(":::TAG","El comentario ${artworkPlainText.text.toString()} ")
+
             }
         })
         return view

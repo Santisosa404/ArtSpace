@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import coil.load
+import com.salesianostriana.dam.artspace.MainActivity
 import com.salesianostriana.dam.artspace.R
 import com.salesianostriana.dam.artspace.poko.ArtWorkDTO
 import com.salesianostriana.dam.artspace.ui.artwork.DetailsActivity
@@ -49,7 +50,8 @@ class MyTrendingRecyclerViewAdapter(
         }
         holder.followView.setOnClickListener (View.OnClickListener {
             viewModel.doFollow(getToken(),idUser!!)
-//            TODO reformar el DTO para pasar la id
+            val intent = Intent(context, MainActivity::class.java)
+            context.startActivity(intent)
         })
 
 

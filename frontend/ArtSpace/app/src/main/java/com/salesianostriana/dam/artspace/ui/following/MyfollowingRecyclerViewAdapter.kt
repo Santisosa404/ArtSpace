@@ -1,6 +1,7 @@
 package com.salesianostriana.dam.artspace.ui.following
 
 import android.content.Context
+import android.content.Intent
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +11,11 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import coil.load
+import com.salesianostriana.dam.artspace.MainActivity
 import com.salesianostriana.dam.artspace.R
 import com.salesianostriana.dam.artspace.poko.ArtWorkDTO
 import com.salesianostriana.dam.artspace.poko.ArtWorkListDTO
+import com.salesianostriana.dam.artspace.ui.artwork.DetailsActivity
 
 
 class MyfollowingRecyclerViewAdapter(
@@ -36,6 +39,13 @@ class MyfollowingRecyclerViewAdapter(
         holder.priceView.text = item.price.toString()
         holder.tittleView.text = item.tittle
         holder.imageView.load("https://imgur.com/${id}.png")
+        holder.imageView.setOnClickListener {
+            val intent = Intent(context, DetailsActivity::class.java).apply {
+                putExtra("artWork_id",item.id.toString())
+                putExtra("image_id",id)
+            }
+            context.startActivity(intent)
+        }
         if(item.meGustaUsuario){
             holder.likeView.setImageResource(R.drawable.ic_heart_full)
         }else{
