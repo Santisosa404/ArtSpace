@@ -19,7 +19,7 @@ class FollowingController(
     fun getAllArtworks(@AuthenticationPrincipal user: User): ResponseEntity<Any> {
         //Voy a tener que buscar la gente a la que sigue y de la gente a la que sigue sacar sus publicaciones.
         var artworks = artS.allFollowingArtWorks(user.id!!)
-        return ResponseEntity.ok().body(artworks.map { it.toDTO() })
+        return ResponseEntity.ok().body(artworks.map { it.toListDTO(user) })
     }
 
 }

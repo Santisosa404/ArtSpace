@@ -1,6 +1,7 @@
 package com.salesianostriana.dam.artSpace.controllers
 
 import com.salesianostriana.dam.artSpace.models.ArtWorkDTO
+import com.salesianostriana.dam.artSpace.models.ArtWorkListDTO
 import com.salesianostriana.dam.artSpace.models.User
 import com.salesianostriana.dam.artSpace.services.ArtWorkService
 import org.springframework.http.ResponseEntity

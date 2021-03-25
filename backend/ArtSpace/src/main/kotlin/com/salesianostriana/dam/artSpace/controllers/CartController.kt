@@ -44,7 +44,7 @@ class CartController(
     fun getCart(@AuthenticationPrincipal user: User): ResponseEntity<CartDTO> {
         return if (user.actualCart!!.isNotEmpty()) {
             var res = artS.allArtWorkById(user.actualCart!!)
-            ResponseEntity.status(HttpStatus.OK).body(CartDTO(res.map { it.toArtWorkCartDTO() } as MutableList<ArtWorkCartDTO>,price(res)))
+            ResponseEntity.status(HttpStatus.OK).body(CartDTO(res.map { it.toArtWorkCartDTO() } as MutableList<ArtWorkCartDTO>,artS.price(res)))
         }
         else
             ResponseEntity.status(200).body(CartDTO(mutableListOf(),0.0))
@@ -52,11 +52,10 @@ class CartController(
 
     @PostMapping("/buy")
     fun buyCart(@AuthenticationPrincipal user: User) : ResponseEntity<Any>{
-
         return if(user.actualCart!!.isNotEmpty()){
             var artWorkList = artS.allArtWorkById(user.actualCart!!)
             var buyDetailsList = buyDS.artWorksToBuyDetails(artWorkList)
-            var buy = Buy(price(artWorkList), buyDetailsList)
+            var buy = Buy(artS.price(artWorkList), buyDetailsList)
             user.addCart(buy)
             buyDS.saveAll(buyDetailsList)
             buyS.save(buy)
@@ -67,11 +66,5 @@ class CartController(
             ResponseEntity.status(HttpStatus.BAD_REQUEST).build()
     }
 
-    fun price(artWorks : MutableList<ArtWork>) : Double{
-        var res = 0.0
-        artWorks.forEach {
-            res += it.price
-        }
-        return res
-    }
+
 }

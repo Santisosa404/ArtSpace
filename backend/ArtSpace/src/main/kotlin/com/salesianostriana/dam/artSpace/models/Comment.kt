@@ -10,8 +10,8 @@ class Comment(
         @Lob var body: String,
 
         @ManyToOne
-        var artWork: ArtWork?,
+        var artWork: ArtWork? = null,
         @Id @GeneratedValue var id: UUID?=null
 ) {
-        fun toDTO() = CommentDTO(this.body)
+        fun toDTO() = CommentDTO(this.body, this.artWork!!.user!!.username)
 }

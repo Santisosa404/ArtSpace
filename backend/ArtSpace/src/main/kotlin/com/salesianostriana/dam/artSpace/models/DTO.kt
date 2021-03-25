@@ -8,12 +8,15 @@ import javax.validation.constraints.*
 data class UserDTO(
         @get:NotBlank(message = "{user.username.notBlank}")
         var username : String,
+        @get:NotBlank(message = "{user.fullname.notBlank}")
+        var fullname : String,
         @get:Email(message = "{user.email.notEmail}")
         var email : String,
         @get:NotBlank(message = "{user.address.notBlank}")
         var address : String,
         @get:NotBlank(message = "{user.location.notBlank}")
         var location : String,
+        var description: String,
         var artWorks: MutableList<ArtWorkDTO>?,
         var following : MutableList<UserRespDTO>?,
         var id : UUID?
@@ -58,7 +61,6 @@ data class UserEditDTO(
     var fullname : String,
     @get:Email(message = "{user.email.notEmail}")
     var email: String,
-    var password : String,
     @get:NotBlank(message = "{user.address.notBlank}")
     var address: String,
     @get:NotBlank(message = "{user.location.notBlank}")
@@ -97,14 +99,31 @@ data class ArtWorkDTO(
     var images : MutableList<ImageArtWorkDTO>?,
     var likes : MutableList<UserRespDTO>,
     var comments : MutableList<CommentDTO>,
+    var username : String?,
+    var userId : UUID?=null,
     var id: UUID?
     )
+data class ArtWorkListDTO(
+        @get:NotBlank(message = "{artWork.tittle.notBlank}")
+        var tittle : String,
+        @Min(value = 1)
+        var price : Double,
+        var description: String,
+        @get:NotBlank(message = "{artWork.material.notBlank}")
+        var material : String,
+        var images : MutableList<ImageArtWorkDTO>?,
+        var likes : MutableList<UserRespDTO>,
+        var comments : MutableList<CommentDTO>,
+        var userName : String? = null,
+        var userId : UUID?=null,
+        var meGustaUsuario:Boolean,
+        var id: UUID?
+)
 data class ArtWorkCartDTO(
     @get:NotBlank(message = "{artWork.tittle.notBlank}")
     var tittle : String,
     @Min(value = 1)
     var price : Double,
-    @Lob var description: String,
     @get:NotBlank(message = "{artWork.material.notBlank}")
     var material : String,
     var images : MutableList<ImageArtWorkDTO>? = mutableListOf(),
@@ -112,13 +131,14 @@ data class ArtWorkCartDTO(
     )
 
 data class ImageArtWorkDTO(
-    var img : ImgurImageAttribute?,
+    var img : String?= null,
     var id: UUID?
 )
 
 data class  CommentDTO(
     @get:NotNull(message = "{comment.body.notNull}")
-    @Lob var body : String
+    var body : String,
+    var username: String?=null
 )
 
 data class CartDTO(

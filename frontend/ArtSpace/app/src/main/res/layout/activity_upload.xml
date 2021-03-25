@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/textView_upload_constraint"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.artwork.UploadActivity">
+
+    <EditText
+        android:id="@+id/editText_upload_titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="112dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/Titulo_artwork"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editText_upload_description"
+        android:layout_width="265dp"
+        android:layout_height="79dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="@string/Descripcion_artwork"
+        android:maxLength="250"
+        android:inputType="textMultiLine"
+        app:layout_constraintStart_toStartOf="@+id/editText_upload_precio"
+        app:layout_constraintTop_toBottomOf="@+id/editText_upload_precio" />
+
+    <EditText
+        android:id="@+id/editText_upload_precio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/Precio_artwork"
+        app:layout_constraintStart_toStartOf="@+id/editText_upload_material"
+        app:layout_constraintTop_toBottomOf="@+id/editText_upload_material" />
+
+    <EditText
+        android:id="@+id/editText_upload_material"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/Material_artwork"
+        app:layout_constraintStart_toStartOf="@+id/editText_upload_titulo"
+        app:layout_constraintTop_toBottomOf="@+id/editText_upload_titulo" />
+
+    <Button
+        android:id="@+id/button_upload_selectImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/Imagen_upload"
+        app:layout_constraintStart_toStartOf="@+id/editText_upload_description"
+        app:layout_constraintTop_toBottomOf="@+id/editText_upload_description" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="468dp"
+        android:text="@string/Subir_artwork"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

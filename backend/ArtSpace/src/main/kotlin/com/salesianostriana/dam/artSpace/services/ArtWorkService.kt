@@ -20,4 +20,11 @@ class ArtWorkService(
     fun allNotFollowingArtsWorks(following : MutableList<User>, id: UUID) = artR.notFollowingArtWorks(following, id)
     fun allArtWorkById(cartId : MutableList<UUID>) = artR.getAllById(cartId)
 
+    fun price(artWorks : MutableList<ArtWork>) : Double{
+        var res = 0.0
+        artWorks.forEach {
+            res += it.price
+        }
+        return res
+    }
 }
