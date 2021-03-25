@@ -6,13 +6,13 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.salesianostriana.dam.artspace.ui.cart.CartActivity
 import com.salesianostriana.dam.artspace.ui.login.LoginActivity
 
 class MainActivity : AppCompatActivity() {
@@ -25,11 +25,9 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
         val navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
+                R.id.navigation_following, R.id.navigation_trending, R.id.navigation_profile
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -38,7 +36,6 @@ class MainActivity : AppCompatActivity() {
         val sharedPref =
             getSharedPreferences(getString(R.string.preference_file_name), Context.MODE_PRIVATE)
         token = sharedPref.getString("TOKEN", "")!!
-        Toast.makeText(this, "Token: ${token}", Toast.LENGTH_LONG).show()
 
     }
 
@@ -52,6 +49,7 @@ class MainActivity : AppCompatActivity() {
             actionLogout.icon = getDrawable(R.drawable.ic_profile_user)
         }
 
+
         return true
 
     }
@@ -62,10 +60,18 @@ class MainActivity : AppCompatActivity() {
                 logout()
                 true
             }
+            R.id.action_cart ->{
+                goToCart()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
+    private fun goToCart(){
+        val intent = Intent(this, CartActivity::class.java)
+        startActivity(intent)
+    }
     private fun logout() {
         if (token.isEmpty()) {
             val intent = Intent(this, LoginActivity::class.java)

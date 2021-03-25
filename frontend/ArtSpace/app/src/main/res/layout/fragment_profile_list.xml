@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/image_view_avatar"
+        android:layout_width="89dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/textView_prof_following"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/following"
+        app:layout_constraintEnd_toEndOf="@+id/image_view_avatar"
+        app:layout_constraintHorizontal_bias="0.518"
+        app:layout_constraintStart_toStartOf="@+id/image_view_avatar"
+        app:layout_constraintTop_toBottomOf="@+id/image_view_avatar" />
+
+    <ImageView
+        android:id="@+id/image_edit"
+        android:layout_width="31dp"
+        android:layout_height="23dp"
+        android:layout_marginEnd="116dp"
+        app:layout_constraintBottom_toTopOf="@+id/image_view_avatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ic_edit" />
+
+    <TextView
+        android:id="@+id/textView_prof_following_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="num Seg"
+        app:layout_constraintEnd_toEndOf="@+id/image_view_avatar"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toStartOf="@+id/image_view_avatar"
+        app:layout_constraintTop_toBottomOf="@+id/image_view_avatar" />
+
+    <TextView
+        android:id="@+id/textView_prof_artWork"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="248dp"
+        android:text="@string/yourArtworks"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_prof_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/profile_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_prof_following_count" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_cart_artwork"
+        android:name="com.salesianostriana.dam.artspace.ui.profile.ProfileFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layoutManager="LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_prof_artWork"
+        app:layout_constraintVertical_bias="0.0"
+        tools:context=".ui.profile.ProfileFragment"
+        tools:listitem="@layout/fragment_profile" />
+
+    <TextView
+        android:id="@+id/textView_prof_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/username"
+        app:layout_constraintBottom_toTopOf="@+id/image_view_avatar"
+        app:layout_constraintEnd_toEndOf="@+id/image_view_avatar"
+        app:layout_constraintStart_toStartOf="@+id/image_view_avatar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.764" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,5 +19,5 @@ class ImageArtWork(
 ) {
 
 
-        fun toDTO() = ImageArtWorkDTO(this.img,this.id)
+        fun toDTO() = ImageArtWorkDTO(this.img?.id,this.id)
 }

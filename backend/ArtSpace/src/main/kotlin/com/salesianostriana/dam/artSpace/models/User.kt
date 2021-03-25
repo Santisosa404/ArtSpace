@@ -21,6 +21,10 @@ class User(
 
     @ElementCollection(fetch = FetchType.EAGER)
     val roles: MutableSet<String> = HashSet(),
+
+    @ElementCollection
+    @LazyCollection(LazyCollectionOption.FALSE)
+    var actualCart : MutableList<UUID>? = mutableListOf(),
     //Asociacion con ArtWork composicion
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -41,10 +45,15 @@ class User(
     @LazyCollection(LazyCollectionOption.FALSE)
     var following: MutableList<User> = mutableListOf(),
 
-    //Asociacion con Cart
+    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
+    var followers: MutableList<User> = mutableListOf(),
+
+
+    //Asociacion con Buy
     @OneToMany(mappedBy = "userOrder")
     @LazyCollection(LazyCollectionOption.FALSE)
-    var carts: MutableList<Cart> = mutableListOf(),
+    var buys: MutableList<Buy> = mutableListOf(),
 
 
     private val nonExpired: Boolean = true,
@@ -64,7 +73,7 @@ class User(
     }
 
     /**
-     * Metodos auxiliares composicion User -> ArtWork
+     * Metodos auxiliares  ArtWork
      */
     fun addPost(artWork: ArtWork) {
         artWork.user = this
@@ -93,6 +102,35 @@ class User(
         }
     }
 
+    /**
+     * Metodos auxiliares following
+     *
+     */
+    fun addFollower(user: User) {
+        user.followers.add(this)
+        this.following.add(user)
+    }
+
+
+    fun deleteFollower(user: User) {
+        this.following.remove(user)
+        user.followers.remove(this)
+    }
+
+    /**
+     * Metodos auxiliares carrito
+     */
+    fun addCart(buy: Buy) {
+        buy.userOrder = this
+        this.buys.add(buy)
+    }
+
+    fun deleteCart(buy: Buy) {
+        buy.userOrder = null
+        this.buys.remove(buy)
+    }
+
+
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> =
         roles.map { SimpleGrantedAuthority("ROLE_$it") }.toMutableSet()
 
@@ -112,10 +150,31 @@ class User(
 
     fun toUserDTO() = UserDTO(
         this.username,
+        this.fullname,
         this.email,
         this.address,
         this.location,
+        this.description,
         this.artWorks?.map { it.toDTO() } as MutableList<ArtWorkDTO>,
         this.following.map { it.toUserRespDTO() } as MutableList<UserRespDTO>,
         this.id)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as User
+
+        if (id != other.id) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return id?.hashCode() ?: 0
+    }
+
+
+
+
 }
