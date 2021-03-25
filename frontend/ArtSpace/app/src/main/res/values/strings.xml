@@ -51,4 +51,7 @@
     <string name="Direccion">Direccion</string>
     <string name="Localidad">Localidad</string>
     <string name="Editar">Editar perfil</string>
+    <string name="Comentarios">Comentarios</string>
+    <string name="Comentario">Comentario</string>
+    <string name="EnviarComentario">Enviar Comentario</string>
 </resources>

@@ -73,8 +73,8 @@ data class ArtWorkDTO(
     var images : MutableList<ImageArtWorkDTO>?,
     var likes : MutableList<UserRespDTO>,
     var comments : MutableList<CommentDTO>,
-    var username : String? = null,
-    var userId : UUID? = null,
+    var username : String?,
+    var userId : UUID?,
     var id: UUID?
 )
 
@@ -108,6 +108,11 @@ data class ImageArtWorkDTO(
 data class ImgurImageAttribute(var id: String?, var deletehash: String?)
 
 data class CommentDTO(
+    var body: String,
+    var username: String?
+)
+
+data class CommentBodyDTO(
     var body: String
 )
 

@@ -71,7 +71,7 @@ class ArtWork(
             this.images.map { it.toDTO() } as MutableList<ImageArtWorkDTO>,
             this.likesGotten.map { it.toUserRespDTO() } as MutableList<UserRespDTO>,
             this.comments.map { it.toDTO() } as MutableList,
-            this.user?.username,
+            this.user!!.username,
             this.user?.id!!,
             this.id)
 

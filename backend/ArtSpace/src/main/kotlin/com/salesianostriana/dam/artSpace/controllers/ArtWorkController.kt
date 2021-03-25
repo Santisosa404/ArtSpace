@@ -75,8 +75,9 @@ class ArtWorkController(
     }
 
     @PostMapping("/{id}/comment")
-    fun addComment(@PathVariable id: UUID, @Valid @RequestBody comment: Comment): ResponseEntity<Any> {
+    fun addComment(@PathVariable id: UUID, @Valid @RequestBody commentDTO: CommentDTO): ResponseEntity<Any> {
         return if (artS.existById(id)) {
+            var comment = Comment(commentDTO.body)
             var art = artS.findById(id).get()
             art.addComment(comment)
             commS.save(comment)

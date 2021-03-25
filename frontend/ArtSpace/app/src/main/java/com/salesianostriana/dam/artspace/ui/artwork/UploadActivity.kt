@@ -33,8 +33,4 @@ class UploadActivity : AppCompatActivity() {
         ctx = this
     }
 
-    private fun init(){
-
-
-    }
 }

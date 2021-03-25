@@ -1,19 +1,18 @@
 package com.salesianostriana.dam.artspace.ui.trending
 
 import android.content.Context
-import android.media.Image
-import android.util.Log
+import android.content.Intent
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import coil.load
 import com.salesianostriana.dam.artspace.R
 import com.salesianostriana.dam.artspace.poko.ArtWorkDTO
-
+import com.salesianostriana.dam.artspace.ui.artwork.DetailsActivity
+import com.salesianostriana.dam.artspace.ui.login.LoginActivity
 
 /**
  * [RecyclerView.Adapter] that can display a [DummyItem].
@@ -41,6 +40,13 @@ class MyTrendingRecyclerViewAdapter(
         holder.priceView.text = item.price.toString()
         holder.tittleView.text = item.tittle
         holder.imageView.load("https://imgur.com/${id}.png")
+        holder.imageView.setOnClickListener {
+            val intent = Intent(context, DetailsActivity::class.java).apply {
+                putExtra("artWork_id",item.id.toString())
+                putExtra("image_id",id)
+            }
+            context.startActivity(intent)
+        }
         holder.followView.setOnClickListener (View.OnClickListener {
             viewModel.doFollow(getToken(),idUser!!)
 //            TODO reformar el DTO para pasar la id

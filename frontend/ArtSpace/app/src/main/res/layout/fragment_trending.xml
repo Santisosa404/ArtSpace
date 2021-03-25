@@ -19,7 +19,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="411dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <TextView
@@ -28,6 +28,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="36dp"
                     android:text="username"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/imageView_trend_image"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -49,7 +50,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="36dp"
                     android:layout_marginTop="20dp"
-                    android:text="TextView"
+                    android:text="@string/Titulo_artwork"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageView_trend_image" />
 
@@ -59,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="20dp"
-                    android:text="TextView"
+                    android:text="@string/Precio_artwork"
                     app:layout_constraintStart_toEndOf="@+id/textView_trend_tittle"
                     app:layout_constraintTop_toBottomOf="@+id/imageView_trend_image" />
 
@@ -67,19 +69,22 @@
                     android:id="@+id/textView_trend_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="56dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="24dp"
                     android:text="TextView"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView_trend_image"
-                    app:layout_constraintHorizontal_bias="0.502"
-                    app:layout_constraintStart_toStartOf="@+id/imageView_trend_image"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView_trend_image" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/textView_trend_tittle"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_trend_tittle" />
 
                 <ImageView
                     android:id="@+id/imageView_trend_likeEmpty"
                     android:layout_width="29dp"
                     android:layout_height="29dp"
-                    android:layout_marginEnd="64dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="80dp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/textView_trend_euro"
                     app:layout_constraintTop_toBottomOf="@+id/imageView_trend_image"
                     app:srcCompat="@drawable/ic_heart_empty" />
 
@@ -87,7 +92,6 @@
                     android:id="@+id/textView_trend_euro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
                     android:layout_marginTop="20dp"
                     android:text="@string/Euro"
                     app:layout_constraintStart_toEndOf="@+id/textView_trend_price"

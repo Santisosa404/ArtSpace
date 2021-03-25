@@ -99,7 +99,7 @@ data class ArtWorkDTO(
     var images : MutableList<ImageArtWorkDTO>?,
     var likes : MutableList<UserRespDTO>,
     var comments : MutableList<CommentDTO>,
-    var userName : String?,
+    var username : String?,
     var userId : UUID?=null,
     var id: UUID?
     )
@@ -138,7 +138,8 @@ data class ImageArtWorkDTO(
 
 data class  CommentDTO(
     @get:NotNull(message = "{comment.body.notNull}")
-    @Lob var body : String
+    var body : String,
+    var username: String?=null
 )
 
 data class CartDTO(

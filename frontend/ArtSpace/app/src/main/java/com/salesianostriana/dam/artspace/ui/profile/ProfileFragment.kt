@@ -43,9 +43,8 @@ class ProfileFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 
         val sharedPref =activity?.getSharedPreferences(getString(R.string.preference_file_name), Context.MODE_PRIVATE)
-        var token = sharedPref?.getString("TOKEN", "")!!
+        val token = sharedPref?.getString("TOKEN", "")!!
 
-        //Aquí deberia cargar en el xml los nombres de las variables pero los tengo que llenar?¿
         val v = view.findViewById<RecyclerView>(R.id.list)
         val userName = view.findViewById<TextView>(R.id.textView_prof_username)
         val profDescription : TextView = view.findViewById(R.id.textView_prof_description)
@@ -70,13 +69,8 @@ class ProfileFragment : Fragment() {
             profNumFoll.text = user.following!!.size.toString()
             profEdit.setOnClickListener {
                 val intent = Intent(context, EditUserActivity::class.java).apply {
-                    putExtra("username",user.username)
-                    putExtra("fullname",user.fullname)
-                    putExtra("direccion",user.address)
-                    putExtra("localidad",user.location)
-                    putExtra("email",user.email)
-                    putExtra("descripcion",user.description)
-                    putExtra("id",user.id)
+
+                    putExtra("user_id",user.id)
                 }
                 startActivity(intent)
             }

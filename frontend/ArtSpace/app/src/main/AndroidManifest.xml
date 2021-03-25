@@ -12,9 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ArtSpace">
-        <activity android:name=".ui.artwork.EditUserActivity"></activity>
+        <activity android:name=".ui.artwork.DetailsActivity"></activity>
+        <activity android:name=".ui.artwork.EditUserActivity" />
         <activity android:name=".ui.artwork.UploadActivity" />
-        <activity android:name=".ui.artwork.uploadActivity" />
         <activity android:name=".ui.register.RegisterActivity" />
         <activity android:name=".ui.login.LoginActivity" />
         <activity
