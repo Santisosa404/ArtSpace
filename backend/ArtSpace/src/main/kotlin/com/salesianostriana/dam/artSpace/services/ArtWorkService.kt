@@ -10,8 +10,25 @@ import java.util.*
 class ArtWorkService(
     private val artR: ArtWorkRepository
 ) {
+    /**
+     * Guarda un Artwork en la base de datos
+     * @author Santiago Sosa
+     * @param artWork; publicacion a guardar
+     */
     fun save(artWork : ArtWork) = artR.save(artWork)
+    /**
+     * Devuelve un booleano si existe el Artwork
+     * @param artWork; publicacion a guardar
+     * @author Santiago Sosa
+     * @return True si existe, False si no
+     */
     fun existById(id : UUID) = artR.existsById(id)
+    /**
+     * Busca un Artwork
+     *
+     * @author Santiago Sosa
+     * @param artWork; publicacion a guardar
+     */
     fun findById(id: UUID) = artR.findById(id)
     fun findAll()=artR.findAll()
     fun deleteById(id: UUID)= artR.deleteById(id)

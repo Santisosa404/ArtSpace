@@ -5,6 +5,9 @@ import com.salesianostriana.dam.artSpace.models.User
 import com.salesianostriana.dam.artSpace.models.UserDTO
 import com.salesianostriana.dam.artSpace.models.UserEditDTO
 import com.salesianostriana.dam.artSpace.services.UserService
+import io.swagger.annotations.Api
+import io.swagger.annotations.ApiOperation
+import io.swagger.annotations.ApiParam
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -19,19 +22,19 @@ class ProfileController(
     private val passEnc : PasswordEncoder
 ) {
 
-
+    @ApiOperation(value = "Devuelve el perfil de usuario autenticado")
     @GetMapping
-    fun profileDet(@AuthenticationPrincipal user: User): ResponseEntity<Optional<UserDTO>> {
+    fun profileDet(@ApiParam(value = "Usuario registrado actualmente", required = true,type = "User") @AuthenticationPrincipal user: User): ResponseEntity<Optional<UserDTO>> {
         return ResponseEntity.status(200).body(uS.findById(user.id!!).map { it.toUserDTO() })
     }
-
+    @ApiOperation(value = "Devuelve el usuario a partir de su id")
     @GetMapping("/{id}")
-    fun profileId(@PathVariable id : UUID): ResponseEntity<UserDTO> {
+    fun profileId(@ApiParam(value = "Id del usuario a buscar",required = true, type = "UUID") @PathVariable id : UUID): ResponseEntity<UserDTO> {
         return ResponseEntity.status(200).body(uS.findById(id).map { it.toUserDTO() }.orElseThrow { SingleEntityNotFoundException(id.toString(),User::class.java)  })
     }
-
+    @ApiOperation("Edita al usuario actual")
     @PutMapping("/")
-    fun profileEdit(@AuthenticationPrincipal user: User, @Valid @RequestBody userEdit :  UserEditDTO) : ResponseEntity<Any> {
+    fun profileEdit(@ApiParam(value = "Usuario registrado actualmente", required = true,type = "User") @AuthenticationPrincipal user: User, @ApiParam(value = "Usuario editado", required = true,type = "UserEditDTO") @Valid @RequestBody userEdit :  UserEditDTO) : ResponseEntity<Any> {
             uS.findById(user.id!!).map {
                 it.username = userEdit.username
                 it.fullname = userEdit.fullname
@@ -45,7 +48,7 @@ class ProfileController(
             }
             return ResponseEntity.status(204).build()
     }
-
+    @ApiOperation(value = "Devuelve todos lo usuarios")
     @GetMapping("/all")
     fun listAllProfiles(): ResponseEntity<List<UserDTO>> {
         return ResponseEntity.ok().body(uS.findAll().map { it.toUserDTO() })
