@@ -18,22 +18,22 @@ class LikeController(
 ) {
 
     @PostMapping("/{id}")
-    fun likeArtWork(@PathVariable id : UUID, @AuthenticationPrincipal user: User): ResponseEntity<String> {
+    fun likeArtWork(@PathVariable id : UUID, @AuthenticationPrincipal user: User): ResponseEntity<Any> {
         var artWork = artS.findById(id).get()
 
         user.addLike(artWork)
         artS.save(artWork)
         userS.save(user)
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Like funciona")
+        return ResponseEntity.status(200).build()
     }
 
     @DeleteMapping("/{id}")
-    fun dislikeArtWork(@PathVariable id : UUID, @AuthenticationPrincipal user: User): ResponseEntity<String> {
+    fun dislikeArtWork(@PathVariable id : UUID, @AuthenticationPrincipal user: User): ResponseEntity<Any> {
         var artWork = artS.findById(id).get()
         user.deleteLike(artWork)
         artS.save(artWork)
         userS.save(user)
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Eliminar funciona")
+        return ResponseEntity.status(200).build()
     }
 
 

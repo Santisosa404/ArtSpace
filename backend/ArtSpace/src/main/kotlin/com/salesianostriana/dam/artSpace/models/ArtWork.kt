@@ -3,37 +3,38 @@ package com.salesianostriana.dam.artSpace.models
 import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.*
+
 @Entity
 class ArtWork(
-    @field:NotBlank(message="{artWork.tittle.notBlank}")
-    var tittle: String,
-    @get:Min(value=1)
-    var price: Double,
-    @Lob var description: String,
-    @get:NotBlank(message = "{artWork.material.notBlank}")
-    var material: String,
-    //Asociacion con User composicion
-    @ManyToOne
-    var user: User?,
+        @field:NotBlank(message = "{artWork.tittle.notBlank}")
+        var tittle: String,
+        @get:Min(value = 1)
+        var price: Double,
+        @Lob var description: String,
+        @get:NotBlank(message = "{artWork.material.notBlank}")
+        var material: String,
+        //Asociacion con User composicion
+        @ManyToOne
+        var user: User?,
 
-    //Asociacion likes con User
-    @ManyToMany(mappedBy = "likes", cascade = [CascadeType.ALL])
-    var likesGotten: MutableList<User> = mutableListOf(),
+        //Asociacion likes con User
+        @ManyToMany(mappedBy = "likes", cascade = [CascadeType.ALL])
+        var likesGotten: MutableList<User> = mutableListOf(),
 
-    //Asociacion con ImageArtWorkRepository composicion
-    @OneToMany(mappedBy = "artWork", cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
-    var images: MutableList<ImageArtWork> = mutableListOf(),
+        //Asociacion con ImageArtWorkRepository composicion
+        @OneToMany(mappedBy = "artWork", cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+        var images: MutableList<ImageArtWork> = mutableListOf(),
 
-    //Asociacion con Comment composicion
-    @OneToMany(mappedBy = "artWork", cascade = [CascadeType.ALL])
-    var comments: MutableList<Comment> = mutableListOf(),
+        //Asociacion con Comment composicion
+        @OneToMany(mappedBy = "artWork", cascade = [CascadeType.ALL])
+        var comments: MutableList<Comment> = mutableListOf(),
 
-    //Asociacion con OrderDetails
-    @OneToOne(mappedBy = "artWork")
-    var buyLine: BuyDetails? = null,
+        //Asociacion con OrderDetails
+        @OneToOne(mappedBy = "artWork")
+        var buyLine: BuyDetails? = null,
 
 
-    @Id @GeneratedValue var id: UUID? = null
+        @Id @GeneratedValue var id: UUID? = null
 ) {
     /**
      * Metodos auxiliaes images
@@ -63,35 +64,51 @@ class ArtWork(
 
     fun toNewDTO() = ArtWorkNewDTO(this.tittle, this.price, this.description, this.material)
     fun toDTO() = ArtWorkDTO(
-        this.tittle,
-        this.price,
-        this.description,
-        this.material,
-        this.images.map { it.toDTO() } as MutableList<ImageArtWorkDTO>,
-        this.likesGotten.map { it.toUserRespDTO() } as MutableList<UserRespDTO>,
-        this.comments.map { it.toDTO() } as MutableList,
-        this.id)
+            this.tittle,
+            this.price,
+            this.description,
+            this.material,
+            this.images.map { it.toDTO() } as MutableList<ImageArtWorkDTO>,
+            this.likesGotten.map { it.toUserRespDTO() } as MutableList<UserRespDTO>,
+            this.comments.map { it.toDTO() } as MutableList,
+            this.user!!.username,
+            this.user?.id!!,
+            this.id)
+
+    fun toListDTO(user: User?) = ArtWorkListDTO(
+            this.tittle,
+            this.price,
+            this.description,
+            this.material,
+            this.images.map { it.toDTO() } as MutableList<ImageArtWorkDTO>,
+            this.likesGotten.map { it.toUserRespDTO() } as MutableList<UserRespDTO>,
+            this.comments.map { it.toDTO() } as MutableList,
+            this.user?.username,
+            this.user?.id,
+            this.likesGotten.contains(user),
+            this.id)
 
     fun toArtWorkCartDTO() = ArtWorkCartDTO(this.tittle,
-        this.price,
-        this.description,
-        this.material,
-        this.images.map { it.toDTO() } as MutableList<ImageArtWorkDTO>,
-        this.id)
+            this.price,
+            this.description,
+            this.material,
+            this.images.map { it.toDTO() } as MutableList<ImageArtWorkDTO>,
+            this.id)
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as ArtWork
-
-        if (id != other.id) return false
-
-        return true
+        if (this === other)
+            return true
+        if (other === null || other !is ArtWork)
+            return false
+        if (this::class != other::class)
+            return false
+        return id == other.id
     }
 
     override fun hashCode(): Int {
-        return id?.hashCode() ?: 0
+        if (id == null)
+            return super.hashCode()
+        return id.hashCode()
     }
 
 

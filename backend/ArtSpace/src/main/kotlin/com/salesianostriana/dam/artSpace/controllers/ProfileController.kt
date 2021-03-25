@@ -34,7 +34,6 @@ class ProfileController(
     fun profileEdit(@AuthenticationPrincipal user: User, @Valid @RequestBody userEdit :  UserEditDTO) : ResponseEntity<Any> {
             uS.findById(user.id!!).map {
                 it.username = userEdit.username
-                it.password = passEnc.encode(userEdit.password)
                 it.fullname = userEdit.fullname
                 it.email = userEdit.email
                 it.address = userEdit.address
