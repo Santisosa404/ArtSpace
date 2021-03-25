@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.salesianostriana.dam.artspace.ui.cart.CartActivity
 import com.salesianostriana.dam.artspace.ui.login.LoginActivity
 
 class MainActivity : AppCompatActivity() {
@@ -61,10 +62,18 @@ class MainActivity : AppCompatActivity() {
                 logout()
                 true
             }
+            R.id.action_cart ->{
+                goToCart()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
+    private fun goToCart(){
+        val intent = Intent(this, CartActivity::class.java)
+        startActivity(intent)
+    }
     private fun logout() {
         if (token.isEmpty()) {
             val intent = Intent(this, LoginActivity::class.java)

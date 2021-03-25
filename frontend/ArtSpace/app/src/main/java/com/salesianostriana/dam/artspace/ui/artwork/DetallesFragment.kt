@@ -54,6 +54,7 @@ class DetallesFragment : Fragment() {
         val artworkImage : ImageView = view.findViewById(R.id.imageView_details_image)
         val artworkBoton : Button = view.findViewById(R.id.button_det_enviarComment)
         val artworkPlainText : TextView = view.findViewById(R.id.editText_det_comment)
+        val artworkAddCarrito : ImageView = view.findViewById(R.id.imageView_details_cart)
 
         adapterDetalles = MydetallesRecyclerViewAdapter(commentList)
 
@@ -73,9 +74,21 @@ class DetallesFragment : Fragment() {
             artworkDescription.text = artWorkDTO.description
             artworkPrice.text = artWorkDTO.price.toString()
             artworkImage.load("https://imgur.com/${id_image}.png")
+            artworkAddCarrito.setOnClickListener {
+                viewModel.addCart(token,id)
+                val intent = Intent(context,DetailsActivity::class.java).apply {
+                    putExtra("artWork_id",id.toString())
+                    putExtra("image_id",id_image)
+                }
+                startActivity(intent)
+            }
             artworkBoton.setOnClickListener {
                 viewModel.postComment(token,id, CommentBodyDTO(artworkPlainText.text.toString()))
-
+                val intent = Intent(context,DetailsActivity::class.java).apply {
+                    putExtra("artWork_id",id.toString())
+                    putExtra("image_id",id_image)
+                }
+                startActivity(intent)
             }
         })
         return view

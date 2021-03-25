@@ -52,7 +52,6 @@ class CartController(
 
     @PostMapping("/buy")
     fun buyCart(@AuthenticationPrincipal user: User) : ResponseEntity<Any>{
-
         return if(user.actualCart!!.isNotEmpty()){
             var artWorkList = artS.allArtWorkById(user.actualCart!!)
             var buyDetailsList = buyDS.artWorksToBuyDetails(artWorkList)

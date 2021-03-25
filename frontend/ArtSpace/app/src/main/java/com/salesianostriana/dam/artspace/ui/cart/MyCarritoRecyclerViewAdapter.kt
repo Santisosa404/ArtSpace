@@ -4,17 +4,14 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import coil.load
 import com.salesianostriana.dam.artspace.R
+import com.salesianostriana.dam.artspace.poko.ArtWorkCartDTO
 
-import com.salesianostriana.dam.artspace.ui.cart.dummy.DummyContent.DummyItem
-
-/**
- * [RecyclerView.Adapter] that can display a [DummyItem].
- * TODO: Replace the implementation with code for your data type.
- */
 class MyCarritoRecyclerViewAdapter(
-    private val values: List<DummyItem>
+    private var values: List<ArtWorkCartDTO>
 ) : RecyclerView.Adapter<MyCarritoRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,19 +22,24 @@ class MyCarritoRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.idView.text = item.id
-        holder.contentView.text = item.content
+        val id = item.images!!.last().img
+        holder.artworkImage.load("https://imgur.com/${id}.png")
+        holder.artworkMaterial.text = item.material
+        holder.artworkTitle.text = item.tittle
+        holder.artworkPrice.text = item.price.toString()
     }
 
     override fun getItemCount(): Int = values.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val idView: TextView = view.findViewById(R.id.textView_cart_artWork_price
-        )
-        val contentView: TextView = view.findViewById(R.id.content)
+        val artworkTitle : TextView = view.findViewById(R.id.textView_cart_art_title)
+        val artworkPrice : TextView = view.findViewById(R.id.textView_cart_art_precio)
+        val artworkImage : ImageView = view.findViewById(R.id.imageView_cart_image)
+        val artworkMaterial : TextView = view.findViewById(R.id.textView_cart_art_material)
+    }
 
-        override fun toString(): String {
-            return super.toString() + " '" + contentView.text + "'"
-        }
+    fun setData(newArtWorkCartList : List<ArtWorkCartDTO>){
+        values = newArtWorkCartList
+        notifyDataSetChanged()
     }
 }

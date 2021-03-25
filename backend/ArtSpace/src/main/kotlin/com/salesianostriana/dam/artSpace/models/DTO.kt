@@ -124,7 +124,6 @@ data class ArtWorkCartDTO(
     var tittle : String,
     @Min(value = 1)
     var price : Double,
-    @Lob var description: String,
     @get:NotBlank(message = "{artWork.material.notBlank}")
     var material : String,
     var images : MutableList<ImageArtWorkDTO>? = mutableListOf(),

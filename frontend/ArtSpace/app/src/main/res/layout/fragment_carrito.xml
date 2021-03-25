@@ -18,7 +18,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView_cart_precio"
+                android:id="@+id/textView_cart_art_precio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
@@ -29,19 +29,47 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintVertical_bias="0.463" />
 
             <TextView
-                android:id="@+id/textView_cart_name"
+                android:id="@+id/textView_cart_art_title"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="120dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginBottom="6dp"
                 android:text="@string/NombreArtWorkEnCarrito"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:id="@+id/imageView_cart_image"
+                android:layout_width="110dp"
+                android:layout_height="72dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/textView_cart_art_material"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Material_artwork"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView_cart_art_title"
+                app:layout_constraintTop_toBottomOf="@+id/textView_cart_art_title" />
+
+            <TextView
+                android:id="@+id/textView_cart_euro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Euro"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_cart_art_precio"
+                app:layout_constraintStart_toEndOf="@+id/textView_cart_art_precio"
+                app:layout_constraintTop_toTopOf="@+id/textView_cart_art_precio" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
