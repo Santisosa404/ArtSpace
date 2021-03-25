@@ -5,6 +5,7 @@ import org.hibernate.annotations.LazyCollectionOption
 import java.util.*
 import javax.persistence.*
 
+
 @Entity
 class Buy(
     var finalPrice: Double?=0.0,

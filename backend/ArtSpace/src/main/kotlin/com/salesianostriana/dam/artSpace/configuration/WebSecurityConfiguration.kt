@@ -41,15 +41,22 @@ class WebSecurityConfiguration(
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
+            .antMatchers("/v2/api-docs",
+                "/configuration/ui",
+                "/configuration/security",
+                "/swagger-ui.html",
+                "/swagger-resources/**",
+                "/swagger-ui/**",
+                "/webjars/**").permitAll()
             .antMatchers("/h2-console/**").permitAll()
             .antMatchers(HttpMethod.POST, "/auth/login", "/auth/register").permitAll()
             .antMatchers(HttpMethod.GET, "/artwork/").permitAll()
             .antMatchers("/profile/**","/artwork/**","/cart/**","/like/**","/follow/**","/following/**","/trending/**").hasRole("USER")
             .anyRequest().hasRole("ADMIN")
 
+
         //Filtro para autenticar a traves del token
         http.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter::class.java)
-
         http.headers().frameOptions().disable()
     }
 

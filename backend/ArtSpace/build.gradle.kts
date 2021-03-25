@@ -36,6 +36,14 @@ dependencies {
 	runtimeOnly("com.h2database:h2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
+//	implementation("io.springfox:springfox-swagger2:2.9.2")
+//	implementation("io.springfox:springfox-swagger-ui:2.9.2")
+//	implementation (group= "io.springfox", name= "springfox-swagger2", version= "2.9.2")
+//	implementation (group= "io.springfox", name= "springfox-swagger-ui", version= "2.9.2")
+	implementation(group= "io.springfox", name= "springfox-swagger2", version= "3.0.0")
+	implementation(group= "io.springfox", name= "springfox-boot-starter", version= "3.0.0")
+	implementation(group= "io.springfox", name= "springfox-swagger-ui", version= "3.0.0")
+
 }
 
 tasks.withType<KotlinCompile> {
