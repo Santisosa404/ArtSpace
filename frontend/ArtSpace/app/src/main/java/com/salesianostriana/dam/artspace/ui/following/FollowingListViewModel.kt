@@ -64,7 +64,6 @@ class FollowingListViewModel : ViewModel() {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     //Cambiar el icono?¿
                     if(response.code()==200){
-                        //Todo perfecto se cambia el icono se supone
                     }
                 }
 
@@ -81,7 +80,6 @@ class FollowingListViewModel : ViewModel() {
             likeService.dislikeArtWork("Bearer $token",id).enqueue(object : Callback<Void>{
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if(response.code()==200){
-                        //Todo perfecto se cambia el icono se supone
                     }
                 }
 

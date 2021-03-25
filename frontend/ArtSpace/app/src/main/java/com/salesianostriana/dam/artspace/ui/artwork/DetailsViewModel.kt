@@ -9,6 +9,7 @@ import com.salesianostriana.dam.artspace.poko.CommentBodyDTO
 import com.salesianostriana.dam.artspace.poko.CommentDTO
 import com.salesianostriana.dam.artspace.poko.ProfileResponse
 import com.salesianostriana.dam.artspace.retrofit.ArtWorkService
+import com.salesianostriana.dam.artspace.retrofit.CartService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,6 +23,7 @@ class DetailsViewModel : ViewModel() {
     val baseUrl = "http://10.0.2.2:4141"
     var retrofit: Retrofit
     var service: ArtWorkService
+    var cartService: CartService
     private val _artwork = MutableLiveData<ArtWorkDTO>()
 
     private var _comments = MutableLiveData<List<CommentDTO>>()
@@ -38,6 +40,8 @@ class DetailsViewModel : ViewModel() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         service = retrofit.create(ArtWorkService::class.java)
+        cartService = retrofit.create(CartService::class.java)
+
     }
 
     fun getDetails(token: String, id: UUID) {
@@ -62,11 +66,22 @@ class DetailsViewModel : ViewModel() {
                     Log.i(":::TAG","Publicado")
                 }
             }
-
             override fun onFailure(call: Call<Void>, t: Throwable) {
-            null
             }
         })
+    }
+
+    fun addCart(token : String,id: UUID){
+        cartService.addToCart("Bearer $token",id).enqueue(object :Callback<Void>{
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+            Log.i(":::TAG","On failure add")
+            }
+        })
+
     }
 }
 

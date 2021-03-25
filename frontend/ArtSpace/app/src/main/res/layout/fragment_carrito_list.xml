@@ -6,12 +6,13 @@
     android:layout_height="match_parent" >
 
     <TextView
-        android:id="@+id/textView_cart_artWork_tittle"
+        android:id="@+id/textView_cart_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="116dp"
         android:layout_marginTop="56dp"
         android:text="@string/cartItems"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,47 +23,52 @@
         android:layout_marginTop="56dp"
         android:layout_marginEnd="16dp"
         android:text="@string/cartPrice"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_cart_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/textView_cart_artWork_tittle"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/textView_cart_title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView_cart_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="304dp"
+        android:text="@string/TextView_cart_total"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView_cart_total_precio" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list"
+        android:id="@+id/list_cart_artwork"
         android:name="com.salesianostriana.dam.artspace.ui.cart.CarritoFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         app:layoutManager="LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="@id/textView_cart_total"
+        app:layout_constraintBottom_toTopOf="@+id/textView_cart_total"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_cart_artWork_tittle"
-        app:layout_constraintVertical_bias="0.456"
+        app:layout_constraintTop_toBottomOf="@+id/textView_cart_title"
+        app:layout_constraintVertical_bias="0.0"
         tools:context=".ui.cart.CarritoFragment"
         tools:listitem="@layout/fragment_carrito">
 
     </androidx.recyclerview.widget.RecyclerView>
 
     <TextView
-        android:id="@+id/textView_cart_total"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="312dp"
-        android:layout_marginBottom="300dp"
-        android:text="@string/TextView_cart_total"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
         android:id="@+id/textView_cart_total_precio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="300dp"
         android:text="@string/textView_cart_total_precio"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/textView_cart_total"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/list_cart_artwork"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/button_cart_pagar"
@@ -72,7 +78,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list"
+        app:layout_constraintTop_toBottomOf="@+id/list_cart_artwork"
         app:layout_constraintVertical_bias="0.238" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Euro"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_cart_total_precio"
+        app:layout_constraintStart_toEndOf="@+id/textView_cart_total_precio"
+        app:layout_constraintTop_toTopOf="@+id/textView_cart_total_precio" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

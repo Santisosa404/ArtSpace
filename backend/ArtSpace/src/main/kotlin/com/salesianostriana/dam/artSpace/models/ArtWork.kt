@@ -90,7 +90,6 @@ class ArtWork(
 
     fun toArtWorkCartDTO() = ArtWorkCartDTO(this.tittle,
             this.price,
-            this.description,
             this.material,
             this.images.map { it.toDTO() } as MutableList<ImageArtWorkDTO>,
             this.id)

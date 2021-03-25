@@ -69,7 +69,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView_prof_following_count" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list"
+        android:id="@+id/list_cart_artwork"
         android:name="com.salesianostriana.dam.artspace.ui.profile.ProfileFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"

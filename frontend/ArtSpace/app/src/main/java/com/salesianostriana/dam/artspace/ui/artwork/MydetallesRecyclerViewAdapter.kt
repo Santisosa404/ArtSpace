@@ -9,10 +9,7 @@ import com.salesianostriana.dam.artspace.R
 import com.salesianostriana.dam.artspace.poko.CommentDTO
 
 
-/**
- * [RecyclerView.Adapter] that can display a [DummyItem].
- * TODO: Replace the implementation with code for your data type.
- */
+
 class MydetallesRecyclerViewAdapter(
     private var values: List<CommentDTO>
 ) : RecyclerView.Adapter<MydetallesRecyclerViewAdapter.ViewHolder>() {

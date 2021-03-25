@@ -81,7 +81,6 @@ data class ArtWorkDTO(
 data class ArtWorkCartDTO(
     var tittle: String,
     var price: Double,
-    var description: String,
     var material: String,
     var images: MutableList<ImageArtWorkDTO>? = mutableListOf(),
     var id: UUID?
